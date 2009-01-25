@@ -15,8 +15,9 @@ class well(object):
 	def __init__(self,alpha,num):
 		self.alpha = alpha
 		self.num = num
-		
-		
+	def about(self):
+		about = "WELL: %s%s" % (self.alpha , self.num)
+		return about
 def main():
 	pass
 
