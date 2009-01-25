@@ -9,13 +9,21 @@ Copyright (c) 2009 __MyCompanyName__. All rights reserved.
 
 import sys
 import os
+import plateliberror
+
 class Component(object):
 	
-	def __init__(self,name,stock,vol):
-		self.vol = vol
+	def __init__(self,name,stockconc,totalvol):
+		self.vol = totalvol
 		self.name = name
-		self.stock = stock
-
+		self.stockconc = stockconc
+		
+	def deplete(self,volused):
+		self.vol = self.vol - volused
+		if self.vol <= 0:
+			raise plateliberror.PlatelibException("Used up component %s" % self.name)
+	def getmls(self):
+		return self.vol/1000.0		
 def main():
 	pass
 

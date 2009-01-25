@@ -83,7 +83,7 @@ class Plate(object):
 		self.calcgradientalongnum(fixedvalue,fixedvalue)
 		return self.xgradientlist
 		
-	def pushtomasterplate(self,Component):
+	def pushtomasterplate(self,Component,start,end):
 		# Sets the well components in masterplate.platedict()
 		pass
 		
@@ -107,7 +107,7 @@ def main():
 	p = Plate("A1","D6")
 	x=p.specifyconstantalongnum(34)
 	print x
-	x=p.specifyconstantalongalpha(36):
+	x=p.specifyconstantalongalpha(36)
 	for i in x:
 		print i
 if __name__ == '__main__':

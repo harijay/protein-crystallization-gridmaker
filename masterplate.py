@@ -16,13 +16,15 @@ class Masterplate(object):
 	nums = [1,2,3,4,5,6,7,8,9,10,11,12]
 	ordered_keys = []
 	welldict = {}
+	volofeachwell = None
 	
-	def __init__(self):
+	def __init__(self,volofeachwell):
+		Masterplate.volofeachwell = volofeachwell
 		for a in self.alphas:
 			for i in self.nums:
 				key = "%s" % a + "%s" % i
 				self.ordered_keys.append(key)
-				self.welldict[key] = well.well(a,i)
+				self.welldict[key] = well.Well(a,i)
 				
 	def getwell(self,alpha,num):
 		key = "%s" % alpha + "%s" % num
@@ -36,7 +38,7 @@ def main():
 	sys.path.append("/Users/hari")
 	import gridder
 	from gridder import masterplate
-	testplate = masterplate.Masterplate()
+	testplate = masterplate.Masterplate(2000)
 	testplate.printwellinfo()
 	pass
 

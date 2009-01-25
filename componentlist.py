@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-componentList.py
+componentlist.py
 
 Created by Hariharan Jayaram on 2009-01-25.
 Copyright (c) 2009 __MyCompanyName__. All rights reserved.
@@ -16,9 +16,12 @@ class ComponentList(object):
 		ComponentList.componentfactory = {}
 	def addcomponent(self,Component):
 		self.componentfactory[Component.name] = Component
+	def getcomponent(self,componentname):
+		return self.componentfactory[componentname]
+		
 	def listcontents(self):
 		for i in ComponentList.componentfactory:
-			print ComponentList.componentfactory[i].name,ComponentList.componentfactory[i].vol, ComponentList.componentfactory[i].stock
+			print ComponentList.componentfactory[i].name,ComponentList.componentfactory[i].vol, ComponentList.componentfactory[i].stockconc
 
 def main():
 	rack = ComponentList()
