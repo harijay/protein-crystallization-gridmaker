@@ -9,13 +9,13 @@ Copyright (c) 2009 __MyCompanyName__. All rights reserved.
 
 import sys
 import os
+import plateliberror
 class plate(object):
 	gridstart = None
 	gridend = None
 	numwells = None
 	numalongalpha = None
 	numalongnum = None
-	xgradientlist = []
 	
 	def __init__(self,gridstart,gridend):
 		self.gridstart = gridstart
@@ -31,24 +31,36 @@ class plate(object):
 		self.numalongnum = self.gridmaxnum - self.gridminnum + 1
 		return self.numalongalpha * self.numalongnum
 		
-	def calcgradientnalongnum(self,start,end):
-		self.xgradientlist.append(start)
+	def calcgradientalongnum(self,start,end):
+		xgradientlist = []
+		xgradientlist.append(start)
 		wellstofill = self.numalongnum 
 		step = float(end-start)/wellstofill
 		i = start
-		while len(self.xgradientlist) < (self.numalongnum-1):
+		while len(xgradientlist) < (self.numalongnum-1):
 			i = i + step
-			self.xgradientlist.append(i)
-		self.xgradientlist.append(end)
-		print self.xgradientlist
+			xgradientlist.append(i)
+			xgradientlist.append(end)
+		print xgradientlist
+		
 	def setgradientalongnum(self,list):
 		if len(list) < self.numalongnum:
-			raise 
+			raise plateliberror.PlatelibException("Too few inputs in gradient along x list")
+		else:
+			self.xgradientlist = list
+		print self.xgradientlist
 
 def main():
 	p = plate("A1","D6")
 	print "number of wells in plate" , p.calcnumwells()
-	p.calcgradientnalongnum(22,30)
+	p.calcgradientalongnum(20,26)
+	
+	pasdfaf = plate("A1","D6")
+	pasdfaf.calcgradientalongnum(20,26)
+
+	psdfvd = plate("A1","D6")
+	psdfvd.calcgradientalongnum(20,26)
+	psdfvd.setgradientalongnum([20,22,24,26,28,30])
 
 if __name__ == '__main__':
 	main()
