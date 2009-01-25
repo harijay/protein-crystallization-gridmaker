@@ -11,6 +11,7 @@ import sys
 import os
 import plateliberror
 import masterplate
+import component
 class Plate(object):
 	gridstart = None
 	gridend = None
@@ -18,6 +19,7 @@ class Plate(object):
 	numalongalpha = None
 	numalongnum = None
 	xgradientlist = None
+	
 	
 	def __init__(self,gridstart,gridend):
 		self.gridstart = gridstart
@@ -73,9 +75,18 @@ class Plate(object):
 			self.ygradientlist = list
 		return self.ygradientlist
 		
-	def pushtomasterplate(self):
+	def specifyconstantalongalpha(self,fixedvalue):
+		self.calcgradientalongalpha(fixedvalue,fixedvalue)
+		return self.ygradientlist
+		
+	def specifyconstantalongnum(self,fixedvalue):
+		self.calcgradientalongnum(fixedvalue,fixedvalue)
+		return self.xgradientlist
+		
+	def pushtomasterplate(self,Component):
 		# Sets the well components in masterplate.platedict()
 		pass
+		
 def main():
 	p = Plate("A1","D6")
 	print "number of wells in plate" , p.calcnumwells()
@@ -93,6 +104,12 @@ def main():
 	x=p.calcgradientalongalpha(22,30)
 	for item in x:
 		print item
+	p = Plate("A1","D6")
+	x=p.specifyconstantalongnum(34)
+	print x
+	x=p.specifyconstantalongalpha(36):
+	for i in x:
+		print i
 if __name__ == '__main__':
 	main()
 
