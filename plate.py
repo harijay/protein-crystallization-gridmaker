@@ -9,11 +9,14 @@ Copyright (c) 2009 __MyCompanyName__. All rights reserved.
 
 import sys
 import os
-
 class plate(object):
 	gridstart = None
 	gridend = None
 	numwells = None
+	numalongalpha = None
+	numalongnum = None
+	xgradientlist = []
+	
 	def __init__(self,gridstart,gridend):
 		self.gridstart = gridstart
 		self.gridend = gridend
@@ -24,15 +27,28 @@ class plate(object):
 		self.calcnumwells()
 		
 	def calcnumwells(self):
-		numalongalpha = ord(self.gridmaxalpha)-ord(self.gridminalpha)+1
-		numalongnum = self.gridmaxnum - self.gridminnum + 1
-		return numalongalpha * numalongnum
-	def calcgradientnums(self,start):
+		self.numalongalpha = ord(self.gridmaxalpha)-ord(self.gridminalpha)+1
+		self.numalongnum = self.gridmaxnum - self.gridminnum + 1
+		return self.numalongalpha * self.numalongnum
+		
+	def calcgradientnalongnum(self,start,end):
+		self.xgradientlist.append(start)
+		wellstofill = self.numalongnum 
+		step = float(end-start)/wellstofill
+		i = start
+		while len(self.xgradientlist) < (self.numalongnum-1):
+			i = i + step
+			self.xgradientlist.append(i)
+		self.xgradientlist.append(end)
+		print self.xgradientlist
+	def setgradientalongnum(self,list):
+		if len(list) < self.numalongnum:
+			raise 
 
 def main():
-	p = plate("A1","D3")
+	p = plate("A1","D6")
 	print "number of wells in plate" , p.calcnumwells()
-
+	p.calcgradientnalongnum(22,30)
 
 if __name__ == '__main__':
 	main()
