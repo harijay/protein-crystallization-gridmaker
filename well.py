@@ -10,11 +10,13 @@ Copyright (c) 2009 __MyCompanyName__. All rights reserved.
 import sys
 import os
 
-class well(object):
-	components = []
+class Well(object):
+	
 	def __init__(self,alpha,num):
 		self.alpha = alpha
 		self.num = num
+		self.components = []
+	
 	def about(self):
 		about = "WELL: %s%s" % (self.alpha , self.num)
 		return about

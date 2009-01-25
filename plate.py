@@ -10,12 +10,14 @@ Copyright (c) 2009 __MyCompanyName__. All rights reserved.
 import sys
 import os
 import plateliberror
-class plate(object):
+import masterplate
+class Plate(object):
 	gridstart = None
 	gridend = None
 	numwells = None
 	numalongalpha = None
 	numalongnum = None
+	xgradientlist = None
 	
 	def __init__(self,gridstart,gridend):
 		self.gridstart = gridstart
@@ -25,6 +27,7 @@ class plate(object):
 		self.gridminalpha = self.gridstart[0]
 		self.gridmaxalpha = self.gridend[0]
 		self.calcnumwells()
+		self.xgradientlist = []
 		
 	def calcnumwells(self):
 		self.numalongalpha = ord(self.gridmaxalpha)-ord(self.gridminalpha)+1
@@ -32,36 +35,40 @@ class plate(object):
 		return self.numalongalpha * self.numalongnum
 		
 	def calcgradientalongnum(self,start,end):
-		xgradientlist = []
-		xgradientlist.append(start)
+		self.xgradientlist.append(start)
 		wellstofill = self.numalongnum 
 		step = float(end-start)/wellstofill
 		i = start
-		while len(xgradientlist) < (self.numalongnum-1):
+		while len(self.xgradientlist) < (self.numalongnum-1):
 			i = i + step
-			xgradientlist.append(i)
-			xgradientlist.append(end)
-		print xgradientlist
+			self.xgradientlist.append(i)
+			self.xgradientlist.append(end)
+		return self.xgradientlist
 		
-	def setgradientalongnum(self,list):
+	def specifygradientalongnum(self,list):
+		# Specify the pergentages of peg required for the wells 
 		if len(list) < self.numalongnum:
 			raise plateliberror.PlatelibException("Too few inputs in gradient along x list")
 		else:
 			self.xgradientlist = list
-		print self.xgradientlist
-
+		return self.xgradientlist
+		
+	def pushtomasterplate(self):
+		# Sets the well components in masterplate.platedict()
+		pass
 def main():
-	p = plate("A1","D6")
+	p = Plate("A1","D6")
 	print "number of wells in plate" , p.calcnumwells()
-	p.calcgradientalongnum(20,26)
-	
-	pasdfaf = plate("A1","D6")
-	pasdfaf.calcgradientalongnum(20,26)
-
-	psdfvd = plate("A1","D6")
-	psdfvd.calcgradientalongnum(20,26)
-	psdfvd.setgradientalongnum([20,22,24,26,28,30])
-
+	x=p.calcgradientalongnum(20,26)
+	print x
+	pasdfaf = Plate("A1","D6")
+	x=pasdfaf.calcgradientalongnum(20,26)
+	print x
+	psdfvd = Plate("A1","D3")
+	x=psdfvd.calcgradientalongnum(20,50)
+	print x
+	x = psdfvd.specifygradientalongnum([20,22,24,26,28,30])
+	print x
 if __name__ == '__main__':
 	main()
 

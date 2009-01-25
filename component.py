@@ -9,9 +9,9 @@ Copyright (c) 2009 __MyCompanyName__. All rights reserved.
 
 import sys
 import os
-class component(object):
+class Component(object):
 	
-	def __init__(self,vol,name,stock):
+	def __init__(self,name,stock,vol):
 		self.vol = vol
 		self.name = name
 		self.stock = stock
