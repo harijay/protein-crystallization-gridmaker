@@ -28,6 +28,7 @@ class Plate(object):
 		self.gridmaxalpha = self.gridend[0]
 		self.calcnumwells()
 		self.xgradientlist = []
+		self.ygradientlist = []
 		
 	def calcnumwells(self):
 		self.numalongalpha = ord(self.gridmaxalpha)-ord(self.gridminalpha)+1
@@ -42,7 +43,7 @@ class Plate(object):
 		while len(self.xgradientlist) < (self.numalongnum-1):
 			i = i + step
 			self.xgradientlist.append(i)
-			self.xgradientlist.append(end)
+		self.xgradientlist.append(end)
 		return self.xgradientlist
 		
 	def specifygradientalongnum(self,list):
@@ -52,6 +53,25 @@ class Plate(object):
 		else:
 			self.xgradientlist = list
 		return self.xgradientlist
+	
+	def calcgradientalongalpha(self,start,end):
+		self.ygradientlist.append(start)
+		wellstofill = self.numalongalpha
+		step = float(end-start)/wellstofill
+		i = start
+		while len(self.ygradientlist)< (self.numalongalpha -1):
+			i = i + step
+			self.ygradientlist.append(i)
+		self.ygradientlist.append(end)
+		return self.ygradientlist
+	
+	def specifygradientalongalpha(self,list):
+		# Specify the pergentages of peg required for the wells 
+		if len(list) < self.numalongnum:
+			raise plateliberror.PlatelibException("Too few inputs in gradient along x list")
+		else:
+			self.ygradientlist = list
+		return self.ygradientlist
 		
 	def pushtomasterplate(self):
 		# Sets the well components in masterplate.platedict()
@@ -69,6 +89,10 @@ def main():
 	print x
 	x = psdfvd.specifygradientalongnum([20,22,24,26,28,30])
 	print x
+	p = Plate("A1","D6")
+	x=p.calcgradientalongalpha(22,30)
+	for item in x:
+		print item
 if __name__ == '__main__':
 	main()
 
