@@ -12,7 +12,7 @@ import os
 import well
 
 class Masterplate(object):
-	alphas = ["A", "B", "C" , "D", "E" , "F", "G", "H"]
+	alphas = map(chr, range(65, 73))
 	nums = [1,2,3,4,5,6,7,8,9,10,11,12]
 	ordered_keys = []
 	welldict = {}
@@ -24,7 +24,7 @@ class Masterplate(object):
 			for i in self.nums:
 				key = "%s" % a + "%s" % i
 				self.ordered_keys.append(key)
-				self.welldict[key] = well.Well(a,i)
+				self.welldict[key] = well.Well(a,i,Masterplate.volofeachwell)
 				
 	def getwell(self,alpha,num):
 		key = "%s" % alpha + "%s" % num
