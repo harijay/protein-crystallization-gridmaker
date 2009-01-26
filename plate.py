@@ -153,10 +153,10 @@ class Plate(object):
 		self.push_component_to_row_on_masterplate(masterplate,Component,finalconc,rowalpha)
 	
 	def push_gradient_start_stop_x(self,masterplate,Component,start,stop):
-		self.pushtomasterplate(masterplate,Component,start,end,"alongnum")
+		self.pushtomasterplate(masterplate,Component,start,stop,"alongnum")
 	
 	def push_gradient_start_stop_y(self,masterplate,Component,start,stop):
-		self.pushtomasterplate(masterplate,Component,start,end,"alongalpha")
+		self.pushtomasterplate(masterplate,Component,start,stop,"alongalpha")
 	
 	def push_gradient_list_x(self,masterplate,Component,gradientlist):
 		self.pushlisttomasterplate(masterplate,Component,gradientlist,"alongnum")

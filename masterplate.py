@@ -37,8 +37,9 @@ class Masterplate(object):
 	def printsolventlistsnapshot(self):
 		self.getwell("A",1).getmastercomponentlist().listcontents()
 	
-	def makefileforformulatrix(self):
-		outfile = open("gradient.txt","write")
+	def makefileforformulatrix(self,filename):
+		outfile = open("%s" % filename,"write")
+		outfile.write("DeepWell.pd.txt\t\t\n")
 		for solvent in well.Well.wellcomponentlist.componentfactory:
 			outfile.write("%s\t\t" % solvent)
 			for y in self.alphas:
