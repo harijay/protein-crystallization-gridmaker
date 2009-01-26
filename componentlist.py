@@ -18,7 +18,7 @@ class ComponentList(object):
 		self.componentfactory[Component.name] = Component
 	def getcomponent(self,componentname):
 		return self.componentfactory[componentname]
-		
+	
 	def listcontents(self):
 		for i in ComponentList.componentfactory:
 			print ComponentList.componentfactory[i].name,ComponentList.componentfactory[i].vol, ComponentList.componentfactory[i].stockconc

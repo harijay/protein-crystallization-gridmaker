@@ -10,7 +10,7 @@ Copyright (c) 2009 __MyCompanyName__. All rights reserved.
 import sys
 import os
 import well
-
+import component
 class Masterplate(object):
 	alphas = map(chr, range(65, 73))
 	nums = [1,2,3,4,5,6,7,8,9,10,11,12]
@@ -33,6 +33,10 @@ class Masterplate(object):
 	def printwellinfo(self):
 		for k in self.ordered_keys :
 			print self.welldict[k].about()
+	
+	def printsolventlist(self):
+		self.getwell("A",1).getmastercomponentlist().listcontents()
+			
 			
 def main():
 	sys.path.append("/Users/hari")

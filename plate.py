@@ -184,7 +184,6 @@ def main():
 	ph9p5 = component.Component("ph9.5",1000,100000)
 	water = component.Component("water",100,100000)
 	mp = masterplate.Masterplate(2000)
-	
 	p1 = Plate("A1","D6",mp)
 	p2 = Plate("A7","D12",mp)
 	p3 = Plate("E1","H6",mp)
@@ -239,6 +238,7 @@ def main():
 	p3.fill_water(mp,water)
 	p4.fill_water(mp,water)
 	mp.printwellinfo()
+	
 if __name__ == '__main__':
 	main()
 

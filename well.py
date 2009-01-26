@@ -13,7 +13,7 @@ import component
 import componentlist
 import plateliberror
 class Well(object):
-
+	wellcomponentlist = componentlist.ComponentList()
 	def __init__(self,alpha,num,vol):
 		self.alpha = alpha
 		self.num = num
@@ -28,6 +28,9 @@ class Well(object):
 			raise plateliberror.PlatelibException("Well volume exceeded")
 				
 	def addcomponent(self,Component,finalconc):
+		key = Component.name
+		if key not in Well.wellcomponentlist.componentfactory:
+			Well.wellcomponentlist.addcomponent(Component)
 		voltoadd = (self.vol * finalconc)/(Component.stockconc)
 #		print "Adding %s of\t%s to get a conc of\t%s" % (voltoadd,Component.name,finalconc)
 		Component.deplete(voltoadd)
@@ -48,12 +51,16 @@ class Well(object):
 		return aboutstr
 		
 	def fillwithwater(self,Component):
+		key = Component.name
+		if key not in Well.wellcomponentlist.componentfactory:
+			Well.wellcomponentlist.addcomponent(Component)
 		self.wellcomponentdict[Component.name] = self.volleft
-		
+	def getmastercomponentlist(self):
+		return Well.wellcomponentlist
+			
 def main():
 	w = Well("A",1,2000)
-	rack = componentlist.ComponentList()
-	
+	rack = w.getmastercomponentlist()
 	c1 = component.Component("peg400",50,100)
 	rack.addcomponent(c1)
 	
@@ -67,7 +74,7 @@ def main():
 	print x
 
 	print "Volume of %s left:%s" % (c.name,c.getmls()) 
-
+	rack.listcontents()
 if __name__ == '__main__':
 	main()
 
