@@ -96,35 +96,57 @@ class Plate(object):
 		
 		if gradientdirection == "alongalpha":
 			self.calcgradientalongalpha(start,end)
-			for x in self.alphas:
-				for y in self.nums:
-					welltofill = masterplate.getwell(x,y).addcomponent(Component,float(self.ygradientlist[self.alphas.index(str(x))]))
+			for y in self.alphas:
+				for x in self.nums:
+					welltofill = masterplate.getwell(y,x).addcomponent(Component,float(self.ygradientlist[self.alphas.index(str(y))]))
 		if gradientdirection == "alongnum":
 			self.calcgradientalongnum(start,end)
-			for x in self.alphas:
-				for y in self.nums:
-					welltofill = masterplate.getwell(x,y).addcomponent(Component,float(self.xgradientlist[self.nums.index(y)]))
+			for y in self.alphas:
+				for x in self.nums:
+					welltofill = masterplate.getwell(y,x).addcomponent(Component,float(self.xgradientlist[self.nums.index(x)]))
 		if gradientdirection == "constant":
 			self.specifyconstantalongalpha(start)
 			self.specifyconstantalongnum(start)
-			for x in self.alphas:
-				for y in self.nums:
-					welltofill = masterplate.getwell(x,y).addcomponent(Component,float(self.ygradientlist[self.alphas.index(str(x))]))
+			for y in self.alphas:
+				for x in self.nums:
+					welltofill = masterplate.getwell(y,x).addcomponent(Component,float(self.ygradientlist[self.alphas.index(str(y))]))
 	
-	def pushtomasterlisttoplate(self,masterplate,Component,gradientlist,gradientdirection):
+	def pushlisttomasterplate(self,masterplate,Component,gradientlist,gradientdirection):
 		if gradientdirection == "alongalpha":
 			self.specifygradientalongalpha(gradientlist)
-			for x in self.alphas:
-				for y in self.nums:
-					welltofill = masterplate.getwell(x,y).addcomponent(Component,float(self.ygradientlist[self.alphas.index(str(x))]))
+			for y in self.alphas:
+				for x in self.nums:
+					welltofill = masterplate.getwell(y,x).addcomponent(Component,float(self.ygradientlist[self.alphas.index(str(y))]))
 					
 		if gradientdirection == "alongnum":
 			self.specifygradientalongnum(gradientlist)
-			for x in self.alphas:
-				for y in self.nums:
-					welltofill = masterplate.getwell(x,y).addcomponent(Component,float(self.xgradientlist[self.nums.index(y)]))
-			
-					
+			for y in self.alphas:
+				for x in self.nums:
+					welltofill = masterplate.getwell(y,x).addcomponent(Component,float(self.xgradientlist[self.nums.index(x)]))
+
+#  REFINED methods to fill components 
+	def push_component_to_row_on_masterplate(self,masterplate,Component,finalconc,rowalpha):
+		rowalpha = rowalpha[0]
+		if rowalpha not in self.alphas:
+			raise plateliberror.PlatelibExtension("Specified plate alphabet index not in sub plate")
+		self.specifyconstantalongnum(finalconc)
+		for x in self.nums:
+			welltofill = masterplate.getwell(rowalpha,x).addcomponent(Component,float(self.xgradientlist[self.nums.index(x)]))
+	
+	
+	def push_component_uniform_to_masterplate(self,masterplate,Component,finalconc):
+		self.pushtomasterplate(masterplate,Component,finalconc,finalconc,"constant")				
+
+	def push_component_to_column_on_masterplate(self,masterplate,Component,finalconc,columnnum):
+		if columnnum not in self.nums:
+			raise plateliberror.PlatelibExtension("Specified column number not in sub plate")
+		self.specifyconstantalongalpha(finalconc)
+		for y in self.alphas:
+			welltofill = masterplate.getwell(y,columnnum).addcomponent(Component,float(self.ygradientlist[self.alphas.index(y)])) 
+	
+	def push_buffer_to_column_on_masterplate(self,masterplate,Component,finalconc,columnnum):
+		self.push_component_to_column_on_masterplate(self,masterplate,Component,finalconc,columnnum)
+
 def main():
 	peg = component.Component("peg400",60,100000)
 	salt1 = component.Component("CaCl2",2000,100000)
@@ -151,23 +173,27 @@ def main():
 #	p2 = Plate("A1","D6",mp)
 	p.pushtomasterplate(mp,peg,20,35,"alongalpha")
 	p.pushtomasterplate(mp,peg,100,100,"gradientxlist")
-	p.pushtomasterlisttoplate(mp,ph4p5,[100,0,0,0,0,0],"alongnum")
-	p.pushtomasterlisttoplate(mp,ph5p5,[0,100,0,0,0,0],"alongnum")
-	p.pushtomasterlisttoplate(mp,ph6p5,[0,0,100,0,0,0],"alongnum")
-	p.pushtomasterlisttoplate(mp,ph7p5,[0,0,0,100,0,0],"alongnum")
-	p.pushtomasterlisttoplate(mp,ph8p5,[0,0,0,0,100,0],"alongnum")
-	p.pushtomasterlisttoplate(mp,ph9p5,[0,0,0,0,0,100],"alongnum")
+	p.pushlisttomasterplate(mp,ph4p5,[100,0,0,0,0,0],"alongnum")
+	p.pushlisttomasterplate(mp,ph5p5,[0,100,0,0,0,0],"alongnum")
+	p.pushlisttomasterplate(mp,ph6p5,[0,0,100,0,0,0],"alongnum")
+	p.pushlisttomasterplate(mp,ph7p5,[0,0,0,100,0,0],"alongnum")
+	p.pushlisttomasterplate(mp,ph8p5,[0,0,0,0,100,0],"alongnum")
+	p.pushlisttomasterplate(mp,ph9p5,[0,0,0,0,0,100],"alongnum")
 #	p.pushtomasterplate(mp,salt1,200,200,"constant")
 	
 	p2 = Plate("A7","D12",mp)
 	p2.pushtomasterplate(mp,peg,20,35,"alongalpha")
 	p2.pushtomasterplate(mp,peg,100,100,"gradientxlist")
-	p2.pushtomasterlisttoplate(mp,ph4p5,[100,0,0,0,0,0],"alongnum")
-	p2.pushtomasterlisttoplate(mp,ph5p5,[0,100,0,0,0,0],"alongnum")
-	p2.pushtomasterlisttoplate(mp,ph6p5,[0,0,100,0,0,0],"alongnum")
-	p2.pushtomasterlisttoplate(mp,ph7p5,[0,0,0,100,0,0],"alongnum")
-	p2.pushtomasterlisttoplate(mp,ph8p5,[0,0,0,0,100,0],"alongnum")
-	p2.pushtomasterlisttoplate(mp,ph9p5,[0,0,0,0,0,100],"alongnum")
+	p2.pushlisttomasterplate(mp,ph4p5,[100,0,0,0,0,0],"alongnum")
+	p2.pushlisttomasterplate(mp,ph5p5,[0,100,0,0,0,0],"alongnum")
+	p2.pushlisttomasterplate(mp,ph6p5,[0,0,100,0,0,0],"alongnum")
+	p2.pushlisttomasterplate(mp,ph7p5,[0,0,0,100,0,0],"alongnum")
+	p2.pushlisttomasterplate(mp,ph8p5,[0,0,0,0,100,0],"alongnum")
+	p2.pushlisttomasterplate(mp,ph9p5,[0,0,0,0,0,100],"alongnum")
+	
+	p3 = Plate("E1","H6",mp)
+	p3.push_component_uniform_to_masterplate(mp,salt2,100)
+	p3.push_component_to_column_on_masterplate(mp,ph4p5,100,1)
 	# x=p.specifyconstantalongalpha(36)
 	# 	psdfvd = Plate("A1","D3",mp)
 	# 	x=psdfvd.calcgradientalongnum(20,50)
@@ -179,8 +205,8 @@ def main():
 	# 	for item in x:
 	# 		print item
 #	p = Plate("A6","D12",mp)
-#	p.pushtomasterplate(mp,peg,20,26,"alongalpha")
-#	p.pushtomasterplate(mp,salt2,200,200,"alongalpha")
+	p3.pushtomasterplate(mp,peg,20,26,"alongalpha")
+	p3.pushtomasterplate(mp,salt2,200,200,"alongalpha")
 	mp.printwellinfo()
 	# 	
 	# 	for i in x:
