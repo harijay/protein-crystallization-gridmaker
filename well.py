@@ -33,11 +33,18 @@ class Well(object):
 		Component.deplete(voltoadd)
 		self.wellcomponentdict[Component.name] = voltoadd
 		self.deplete(voltoadd)
+	
+	def calctotalvol(self):
+		total = 0
+		for i in self.wellcomponentdict:
+			total = total + self.wellcomponentdict[i] 
+		return total
 		
 	def about(self):
 		aboutstr = "WELL: %s%s \t" % (self.alpha , self.num)
+		total = self.calctotalvol()
 		for i in self.wellcomponentdict:
-			aboutstr = aboutstr + "Component %s : %3.3f " % (i,self.wellcomponentdict[i])
+			aboutstr = aboutstr + "Component %s : %3.3f " % (i,self.wellcomponentdict[i]) +  "Total:%s" % total 
 		return aboutstr
 		
 	def fillwithwater(self,Component):

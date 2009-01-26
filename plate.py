@@ -164,7 +164,10 @@ class Plate(object):
 	def push_gradient_list_y(self,masterplate,Component,gradientlist):
 		self.pushlisttomasterplate(masterplate,Component,gradientlist,"alongalpha")
 
-
+	def fill_water(self,masterplate,Water):
+		for y in self.alphas:
+			for x in self.nums:
+				welllist = masterplate.getwell(y,x).fillwithwater(Water)
 
 def main():
 	peg400 = component.Component("peg400",60,500000)
@@ -179,7 +182,7 @@ def main():
 	ph7p5 = component.Component("ph7.5",1000,100000)
 	ph8p5 = component.Component("ph8.5",1000,100000)
 	ph9p5 = component.Component("ph9.5",1000,100000)
-	
+	water = component.Component("water",100,100000)
 	mp = masterplate.Masterplate(2000)
 	
 	p1 = Plate("A1","D6",mp)
@@ -230,6 +233,11 @@ def main():
 	p3.push_gradient_list_y(mp,peg400,[25,30,38,45])
 	p4.push_gradient_list_y(mp,peg400,[25,30,38,45])
 	
+	# Water top up 
+	p1.fill_water(mp,water)
+	p2.fill_water(mp,water)
+	p3.fill_water(mp,water)
+	p4.fill_water(mp,water)
 	mp.printwellinfo()
 if __name__ == '__main__':
 	main()
