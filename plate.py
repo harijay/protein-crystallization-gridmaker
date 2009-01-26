@@ -238,6 +238,7 @@ def main():
 	p3.fill_water(mp,water)
 	p4.fill_water(mp,water)
 	mp.printwellinfo()
+	mp.printsolventlistsnapshot()
 	
 if __name__ == '__main__':
 	main()

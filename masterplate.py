@@ -34,7 +34,7 @@ class Masterplate(object):
 		for k in self.ordered_keys :
 			print self.welldict[k].about()
 	
-	def printsolventlist(self):
+	def printsolventlistsnapshot(self):
 		self.getwell("A",1).getmastercomponentlist().listcontents()
 			
 			
