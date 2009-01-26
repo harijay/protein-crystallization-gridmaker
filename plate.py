@@ -159,7 +159,15 @@ def main():
 	p.pushtomasterlisttoplate(mp,ph9p5,[0,0,0,0,0,100],"alongnum")
 #	p.pushtomasterplate(mp,salt1,200,200,"constant")
 	
-	
+	p2 = Plate("A7","D12",mp)
+	p2.pushtomasterplate(mp,peg,20,35,"alongalpha")
+	p2.pushtomasterplate(mp,peg,100,100,"gradientxlist")
+	p2.pushtomasterlisttoplate(mp,ph4p5,[100,0,0,0,0,0],"alongnum")
+	p2.pushtomasterlisttoplate(mp,ph5p5,[0,100,0,0,0,0],"alongnum")
+	p2.pushtomasterlisttoplate(mp,ph6p5,[0,0,100,0,0,0],"alongnum")
+	p2.pushtomasterlisttoplate(mp,ph7p5,[0,0,0,100,0,0],"alongnum")
+	p2.pushtomasterlisttoplate(mp,ph8p5,[0,0,0,0,100,0],"alongnum")
+	p2.pushtomasterlisttoplate(mp,ph9p5,[0,0,0,0,0,100],"alongnum")
 	# x=p.specifyconstantalongalpha(36)
 	# 	psdfvd = Plate("A1","D3",mp)
 	# 	x=psdfvd.calcgradientalongnum(20,50)
