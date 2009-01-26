@@ -41,13 +41,13 @@ class Masterplate(object):
 		outfile = open("gradient.txt","write")
 		for solvent in well.Well.wellcomponentlist.componentfactory:
 			outfile.write("%s\t\t" % solvent)
-			for x in self.nums:
-				for y in self.alphas:
+			for y in self.alphas:
+				for x in self.nums:
 					try:
 						vol = self.getwell(y,x).wellcomponentdict[solvent] 		
-						outfile.write("%3.3f " % vol)
+						outfile.write("\t%3.3f " % round(vol))
 					except KeyError, e:
-						outfile.write("%3.3f " % 0 )
+						outfile.write("\t%3.3f " % 0 )
 			outfile.write("\n")
 		outfile.close()
 def main():
