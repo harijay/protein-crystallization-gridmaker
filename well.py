@@ -29,6 +29,7 @@ class Well(object):
 				
 	def addcomponent(self,Component,finalconc):
 		voltoadd = (self.vol * finalconc)/(Component.stockconc)
+#		print "Adding %s of\t%s to get a conc of\t%s" % (voltoadd,Component.name,finalconc)
 		Component.deplete(voltoadd)
 		self.wellcomponentdict[Component.name] = voltoadd
 		self.deplete(voltoadd)

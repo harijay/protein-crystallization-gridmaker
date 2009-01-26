@@ -75,8 +75,8 @@ class Plate(object):
 	def specifygradientalongalpha(self,list):
 		self.ygradientlist = []
 		# Specify the pergentages of peg required for the wells 
-		if len(list) < self.numalongnum:
-			raise plateliberror.PlatelibException("Too few inputs in gradient along x list")
+		if len(list) < self.numalongalpha:
+			raise plateliberror.PlatelibException("Too few inputs in gradient along y list")
 		else:
 			self.ygradientlist = list
 		return self.ygradientlist
@@ -90,7 +90,9 @@ class Plate(object):
 		self.xgradientlist = []
 		self.calcgradientalongnum(fixedvalue,fixedvalue)
 		return self.xgradientlist
-	
+		
+# Methods to write to the master plate dictionary	
+
 	def pushtomasterplate(self,masterplate,Component,start,end,gradientdirection):
 		# Sets the well components in masterplate.platedict()
 		
@@ -132,8 +134,7 @@ class Plate(object):
 		self.specifyconstantalongnum(finalconc)
 		for x in self.nums:
 			welltofill = masterplate.getwell(rowalpha,x).addcomponent(Component,float(self.xgradientlist[self.nums.index(x)]))
-	
-	
+		
 	def push_component_uniform_to_masterplate(self,masterplate,Component,finalconc):
 		self.pushtomasterplate(masterplate,Component,finalconc,finalconc,"constant")				
 
@@ -145,14 +146,32 @@ class Plate(object):
 			welltofill = masterplate.getwell(y,columnnum).addcomponent(Component,float(self.ygradientlist[self.alphas.index(y)])) 
 	
 	def push_buffer_to_column_on_masterplate(self,masterplate,Component,finalconc,columnnum):
-		self.push_component_to_column_on_masterplate(self,masterplate,Component,finalconc,columnnum)
+		self.push_component_to_column_on_masterplate(masterplate,Component,finalconc,columnnum)
+
+	
+	def push_buffer_to_row_on_masterplate(self,masterplate,Component,finalconc,rowalpha):
+		self.push_component_to_row_on_masterplate(masterplate,Component,finalconc,rowalpha)
+	
+	def push_gradient_start_stop_x(self,masterplate,Component,start,stop):
+		self.pushtomasterplate(masterplate,Component,start,end,"alongnum")
+	
+	def push_gradient_start_stop_y(self,masterplate,Component,start,stop):
+		self.pushtomasterplate(masterplate,Component,start,end,"alongalpha")
+	
+	def push_gradient_list_x(self,masterplate,Component,gradientlist):
+		self.pushlisttomasterplate(masterplate,Component,gradientlist,"alongnum")
+	
+	def push_gradient_list_y(self,masterplate,Component,gradientlist):
+		self.pushlisttomasterplate(masterplate,Component,gradientlist,"alongalpha")
+
+
 
 def main():
-	peg = component.Component("peg400",60,100000)
-	salt1 = component.Component("CaCl2",2000,100000)
-	salt2 = component.Component("NH42SO4",1000,100000)
+	peg400 = component.Component("peg400",60,500000)
+	salt1 = component.Component("NH42SO4",1000,100000)
+	salt2 = component.Component("CaCl2",2000,100000)
 	salt3 = component.Component("CaAc2",1000,100000)
-	salt4 = component.Component("MgCl2",1000,100000)
+	salt4 = component.Component("MgCl2",2000,100000)
 	water = component.Component("water",100,100000)
 	ph4p5 = component.Component("ph4.5",1000,100000)
 	ph5p5 = component.Component("ph5.5",1000,100000)
@@ -162,57 +181,56 @@ def main():
 	ph9p5 = component.Component("ph9.5",1000,100000)
 	
 	mp = masterplate.Masterplate(2000)
-#	p = Plate("A1","D6",mp)
-#	print "number of wells in plate" , p.calcnumwells()
-#	x=p.calcgradientalongnum(20,26)
-#	print x
-	p = Plate("A1","D6",mp)
-#	x=p.calcgradientalongnum(20,26)
-#	print x
-	p.pushtomasterplate(mp,salt1,200,200,"constant")
-#	p2 = Plate("A1","D6",mp)
-	p.pushtomasterplate(mp,peg,20,35,"alongalpha")
-	p.pushtomasterplate(mp,peg,100,100,"gradientxlist")
-	p.pushlisttomasterplate(mp,ph4p5,[100,0,0,0,0,0],"alongnum")
-	p.pushlisttomasterplate(mp,ph5p5,[0,100,0,0,0,0],"alongnum")
-	p.pushlisttomasterplate(mp,ph6p5,[0,0,100,0,0,0],"alongnum")
-	p.pushlisttomasterplate(mp,ph7p5,[0,0,0,100,0,0],"alongnum")
-	p.pushlisttomasterplate(mp,ph8p5,[0,0,0,0,100,0],"alongnum")
-	p.pushlisttomasterplate(mp,ph9p5,[0,0,0,0,0,100],"alongnum")
-#	p.pushtomasterplate(mp,salt1,200,200,"constant")
 	
+	p1 = Plate("A1","D6",mp)
 	p2 = Plate("A7","D12",mp)
-	p2.pushtomasterplate(mp,peg,20,35,"alongalpha")
-	p2.pushtomasterplate(mp,peg,100,100,"gradientxlist")
-	p2.pushlisttomasterplate(mp,ph4p5,[100,0,0,0,0,0],"alongnum")
-	p2.pushlisttomasterplate(mp,ph5p5,[0,100,0,0,0,0],"alongnum")
-	p2.pushlisttomasterplate(mp,ph6p5,[0,0,100,0,0,0],"alongnum")
-	p2.pushlisttomasterplate(mp,ph7p5,[0,0,0,100,0,0],"alongnum")
-	p2.pushlisttomasterplate(mp,ph8p5,[0,0,0,0,100,0],"alongnum")
-	p2.pushlisttomasterplate(mp,ph9p5,[0,0,0,0,0,100],"alongnum")
-	
 	p3 = Plate("E1","H6",mp)
-	p3.push_component_uniform_to_masterplate(mp,salt2,100)
-	p3.push_component_to_column_on_masterplate(mp,ph4p5,100,1)
-	# x=p.specifyconstantalongalpha(36)
-	# 	psdfvd = Plate("A1","D3",mp)
-	# 	x=psdfvd.calcgradientalongnum(20,50)
-	# 	print x
-	# 	x = psdfvd.specifygradientalongnum([20,22,24,26,28,30])
-	# 	print x
-	# 	p = Plate("A1","D6",mp)
-	# 	x=p.calcgradientalongalpha(22,30)
-	# 	for item in x:
-	# 		print item
-#	p = Plate("A6","D12",mp)
-	p3.pushtomasterplate(mp,peg,20,26,"alongalpha")
-	p3.pushtomasterplate(mp,salt2,200,200,"alongalpha")
-	mp.printwellinfo()
-	# 	
-	# 	for i in x:
-	# 		print i
-	# 		
+	p4 = Plate("E7","H12",mp)
 	
+	# Fill the salts :
+	p1.push_component_uniform_to_masterplate(mp,salt1,100)
+	p2.push_component_uniform_to_masterplate(mp,salt2,200)
+	p3.push_component_uniform_to_masterplate(mp,salt3,100)
+	p4.push_component_uniform_to_masterplate(mp,salt4,200)
+	
+	# Fill the buffers :
+	p1.push_buffer_to_column_on_masterplate(mp,ph4p5,100,1)
+	p2.push_buffer_to_column_on_masterplate(mp,ph4p5,100,7)
+	p3.push_buffer_to_column_on_masterplate(mp,ph4p5,100,1)
+	p4.push_buffer_to_column_on_masterplate(mp,ph4p5,100,7)
+
+	p1.push_buffer_to_column_on_masterplate(mp,ph5p5,100,2)
+	p2.push_buffer_to_column_on_masterplate(mp,ph5p5,100,8)
+	p3.push_buffer_to_column_on_masterplate(mp,ph5p5,100,2)
+	p4.push_buffer_to_column_on_masterplate(mp,ph5p5,100,8)
+	
+	p1.push_buffer_to_column_on_masterplate(mp,ph6p5,100,3)
+	p2.push_buffer_to_column_on_masterplate(mp,ph6p5,100,9)
+	p3.push_buffer_to_column_on_masterplate(mp,ph6p5,100,3)
+	p4.push_buffer_to_column_on_masterplate(mp,ph6p5,100,9)
+	
+	p1.push_buffer_to_column_on_masterplate(mp,ph7p5,100,4)
+	p2.push_buffer_to_column_on_masterplate(mp,ph7p5,100,10)
+	p3.push_buffer_to_column_on_masterplate(mp,ph7p5,100,4)
+	p4.push_buffer_to_column_on_masterplate(mp,ph7p5,100,10)
+	
+	p1.push_buffer_to_column_on_masterplate(mp,ph8p5,100,5)
+	p2.push_buffer_to_column_on_masterplate(mp,ph8p5,100,11)
+	p3.push_buffer_to_column_on_masterplate(mp,ph8p5,100,5)
+	p4.push_buffer_to_column_on_masterplate(mp,ph8p5,100,11)
+	
+	p1.push_buffer_to_column_on_masterplate(mp,ph9p5,100,6)
+	p2.push_buffer_to_column_on_masterplate(mp,ph9p5,100,12)
+	p3.push_buffer_to_column_on_masterplate(mp,ph9p5,100,6)
+	p4.push_buffer_to_column_on_masterplate(mp,ph9p5,100,12)
+		
+	# Setup the peg gradients
+	p1.push_gradient_list_y(mp,peg400,[25,30,38,45])
+	p2.push_gradient_list_y(mp,peg400,[25,30,38,45])
+	p3.push_gradient_list_y(mp,peg400,[25,30,38,45])
+	p4.push_gradient_list_y(mp,peg400,[25,30,38,45])
+	
+	mp.printwellinfo()
 if __name__ == '__main__':
 	main()
 
