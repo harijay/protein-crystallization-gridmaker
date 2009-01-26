@@ -36,8 +36,20 @@ class Masterplate(object):
 	
 	def printsolventlistsnapshot(self):
 		self.getwell("A",1).getmastercomponentlist().listcontents()
-			
-			
+	
+	def makefileforformulatrix(self):
+		outfile = open("gradient.txt","write")
+		for solvent in well.Well.wellcomponentlist.componentfactory:
+			outfile.write("%s\t\t" % solvent)
+			for x in self.nums:
+				for y in self.alphas:
+					try:
+						vol = self.getwell(y,x).wellcomponentdict[solvent] 		
+						outfile.write("%3.3f " % vol)
+					except KeyError, e:
+						outfile.write("%3.3f " % 0 )
+			outfile.write("\n")
+		outfile.close()
 def main():
 	sys.path.append("/Users/hari")
 	import gridder

@@ -239,6 +239,8 @@ def main():
 	p4.fill_water(mp,water)
 	mp.printwellinfo()
 	mp.printsolventlistsnapshot()
+	mp.makefileforformulatrix()
+	
 	
 if __name__ == '__main__':
 	main()
