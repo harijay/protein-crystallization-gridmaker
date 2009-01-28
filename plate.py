@@ -187,21 +187,23 @@ class Plate(object):
 			
 	def push_components_mapped_to_row(self,masterplate,simple_component_list,finalconclist,row_list_alphas):
 		if len(simple_component_list) == len(finalconclist) == len(row_list_alphas):
-			for component in simple_component_list:
+			for elem in range(len(simple_component_list)):
 				try:
-					self.push_buffer_to_row_on_masterplate(masterplate,component,finalconclist[simple_component_list.index(component)],row_list_alphas[simple_component_list.index(component)])
-				except PlatelibException, pex:
+					self.push_buffer_to_row_on_masterplate(masterplate,simple_component_list[elem],finalconclist[elem],row_list_alphas[elem])
+				except plateliberror.PlatelibException, pex:
 					print "Please carefully check lists for components , concentrations and row alphabets: %s" % pex.message()
+					raise pex
 		else:
 			raise plateliberror.PlatelibException("Lists Unequal :Please carefully check lists for components , concentrations and row alphabets")
 						
 	def push_components_mapped_to_column(self,masterplate,simple_component_list,finalconclist,col_list_nums):
 		if len(simple_component_list) == len(finalconclist) == len(col_list_nums):
-			for component in simple_component_list:
+			for elem in range(len(simple_component_list)):
 				try:
-					self.push_buffer_to_column_on_masterplate(masterplate,component,finalconclist[simple_component_list.index(component)],col_list_nums[simple_component_list.index(component)])
-				except PlatelibException, pex:
+					self.push_buffer_to_column_on_masterplate(masterplate,simple_component_list[elem],finalconclist[elem],col_list_nums[elem])
+				except plateliberror.PlatelibException, pex:
 					print "Please carefully check lists for components , concentrations and column numbers: %s" % pex.message()
+					raise pex
 		else:
 			raise plateliberror.PlatelibException("Lists Unequal :Please carefully check lists for components , concentrations and column numbers")
 			

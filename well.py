@@ -35,7 +35,7 @@ class Well(object):
 		if key not in Well.wellcomponentlist.componentfactory:
 			Well.wellcomponentlist.addcomponent(Component)
 		voltoadd = (self.vol * finalconc)/(Component.stockconc)
-#		print "Adding %s of\t%s to get a conc of\t%s" % (voltoadd,Component.name,finalconc)
+#		print "Adding %s of\t%s to well %s,%s get a conc of\t%s" % (voltoadd,Component.name,self.alpha,self.num,finalconc)
 		Component.deplete(voltoadd)
 		self.wellcomponentdict[Component.name] = voltoadd
 		self.deplete(voltoadd)
