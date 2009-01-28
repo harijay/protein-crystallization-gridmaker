@@ -3,52 +3,58 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>plate.py</string>
+	<string>.gitignore</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>.gitignore</string>
 			<key>lastUsed</key>
-			<date>2009-01-26T01:34:28Z</date>
-		</dict>
-		<dict>
-			<key>filename</key>
-			<string>componentlist.py</string>
-			<key>lastUsed</key>
-			<date>2009-01-26T03:25:21Z</date>
-		</dict>
-		<dict>
-			<key>filename</key>
-			<string>component.py</string>
-			<key>lastUsed</key>
-			<date>2009-01-26T03:38:09Z</date>
-		</dict>
-		<dict>
-			<key>filename</key>
-			<string>plateliberror.py</string>
-			<key>lastUsed</key>
-			<date>2009-01-26T03:35:32Z</date>
-		</dict>
-		<dict>
-			<key>filename</key>
-			<string>plate.py</string>
-			<key>lastUsed</key>
-			<date>2009-01-26T03:39:38Z</date>
+			<date>2009-01-28T01:00:58Z</date>
 			<key>selected</key>
 			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
+			<string>componentlist.py</string>
+			<key>lastUsed</key>
+			<date>2009-01-28T00:20:42Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>component.py</string>
+			<key>lastUsed</key>
+			<date>2009-01-28T01:00:37Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>plateliberror.py</string>
+			<key>lastUsed</key>
+			<date>2009-01-28T01:00:58Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>MakeRealPlate.py</string>
+			<key>lastUsed</key>
+			<date>2009-01-28T01:00:53Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>plate.py</string>
+			<key>lastUsed</key>
+			<date>2009-01-28T01:00:46Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
 			<string>well.py</string>
 			<key>lastUsed</key>
-			<date>2009-01-26T03:37:59Z</date>
+			<date>2009-01-28T00:17:19Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>masterplate.py</string>
 			<key>lastUsed</key>
-			<date>2009-01-26T03:39:38Z</date>
+			<date>2009-01-28T01:00:51Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -69,104 +75,14 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>component.py</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>4</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>componentlist.py</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>2</integer>
-				<key>line</key>
-				<integer>20</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>1</integer>
-		</dict>
-		<key>masterplate.py</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>65</integer>
-				<key>line</key>
-				<integer>26</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>3</integer>
-		</dict>
-		<key>plate.py</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>161</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>134</integer>
-		</dict>
-		<key>plateliberror.py</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>24</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>well.py</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>47</integer>
-				<key>line</key>
-				<integer>38</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>17</integer>
-		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>masterplate.py</string>
-		<string>well.py</string>
-		<string>component.py</string>
-		<string>componentlist.py</string>
-		<string>plate.py</string>
-		<string>plateliberror.py</string>
 		<string>.gitignore</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{403, 316}, {1078, 712}}</string>
+	<string>{{444, 195}, {817, 720}}</string>
 </dict>
 </plist>

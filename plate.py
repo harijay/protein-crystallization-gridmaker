@@ -172,7 +172,39 @@ class Plate(object):
 		for y in self.alphas:
 			for x in self.nums:
 				welllist = masterplate.getwell(y,x).fillwithwater(Water)
-
+				
+	def push_component_rowlist(self,masterplate,Component,finalconc,row_list_alphas):
+		for row in row_list_alphas:
+			if row not in self.alphas:
+				raise plateliberror.PlatelibException("Plate alphabet %s index in rowlist not in plate" % row)
+			self.push_buffer_to_row_on_masterplate(masterplate,Component,finalconc,row)
+			
+	def push_component_columnlist(self,masterplate,Component,finalconc,column_list_nums):
+		for col in column_list_nums:
+			if col not in col_list_nums:
+				raise plateliberror.PlatelibException("Plate numerical column %s from columnlist not in plate" % col)
+			self.push_component_to_column_on_masterplate(masterplate,Component,finalconc,col)
+			
+	def push_components_mapped_to_row(self,masterplate,simple_component_list,finalconclist,row_list_alphas):
+		if len(simple_component_list) == len(finalconclist) == len(row_list_alphas):
+			for component in simple_component_list:
+				try:
+					self.push_buffer_to_row_on_masterplate(masterplate,component,finalconclist[simple_component_list.index(component)],row_list_alphas[simple_component_list.index(component)])
+				except PlatelibException, pex:
+					print "Please carefully check lists for components , concentrations and row alphabets: %s" % pex.message()
+		else:
+			raise plateliberror.PlatelibException("Lists Unequal :Please carefully check lists for components , concentrations and row alphabets")
+						
+	def push_components_mapped_to_column(self,masterplate,simple_component_list,finalconclist,col_list_nums):
+		if len(simple_component_list) == len(finalconclist) == len(col_list_nums):
+			for component in simple_component_list:
+				try:
+					self.push_buffer_to_column_on_masterplate(masterplate,component,finalconclist[simple_component_list.index(component)],col_list_nums[simple_component_list.index(component)])
+				except PlatelibException, pex:
+					print "Please carefully check lists for components , concentrations and column numbers: %s" % pex.message()
+		else:
+			raise plateliberror.PlatelibException("Lists Unequal :Please carefully check lists for components , concentrations and column numbers")
+			
 def main():
 	peg400 = component.Component("peg400",60,500000)
 	salt1 = component.Component("NH42SO4",1000,100000)
@@ -243,7 +275,7 @@ def main():
 	p4.fill_water(mp,water)
 	mp.printwellinfo()
 	mp.printsolventlistsnapshot()
-	mp.makefileforformulatrix()
+	mp.makefileforformulatrix("tmp.txt")
 	
 	
 if __name__ == '__main__':
