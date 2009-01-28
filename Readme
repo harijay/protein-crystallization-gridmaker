@@ -1,20 +1,14 @@
-#!/usr/bin/env python
-# encoding: utf-8
-"""
-Readme.py
+The Platelib by Hari Jayaram writes out dispense lists for the formulatrix robot.
+The examples files hopefully describe how to use the library.
+Example file list :
+example1.py 
+example2.py
+example3.py
 
-Created by Hariharan Jayaram on 2009-01-28.
-Copyright (c) 2009 __MyCompanyName__. All rights reserved.
-"""
+The examples are self explanatory. If you have any doubts please email the author harijay at the google mail gmail D O and T com 
 
-import sys
-import os
-
-
-def main():
-	pass
-
-
-if __name__ == '__main__':
-	main()
+TODO:
+Graphical display of 96 well plate 
+Fix tab de-limited file - Robot seems happy only after excel has munged the file
+Graphical user interface : Suggestions on library to use are welcome. Top contender something that will work on linux, mac and windows i.e javascript with css and a webapp ( cgi form) . Alternatively something as boring as Tcl_tk or flashy like Flex or JavaFx script. Please write in with suggestions and if you are interested in helping.
 

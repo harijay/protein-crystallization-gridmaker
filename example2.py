@@ -34,7 +34,7 @@ def main():
 	
 	Water = component.Component("100.00% Water",100,100000)
 	p.fill_water(mp,Water)
-# The makefileforformulatrix method of masterplate.Masterplate Class writes the dispense list 
+# The makefileforformulatrix method of masterplate.Masterplate Class writes the dispense list
 	mp.makefileforformulatrix("example2.dl.txt")
 	
 if __name__ == '__main__':
