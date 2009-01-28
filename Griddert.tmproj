@@ -3,52 +3,70 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>.gitignore</string>
+	<string>Multiplatemod-concise-errortest.py</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>.gitignore</string>
 			<key>lastUsed</key>
-			<date>2009-01-28T01:00:58Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2009-01-28T14:34:06Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>componentlist.py</string>
 			<key>lastUsed</key>
-			<date>2009-01-28T00:20:42Z</date>
+			<date>2009-01-28T14:34:08Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>component.py</string>
 			<key>lastUsed</key>
-			<date>2009-01-28T01:00:37Z</date>
+			<date>2009-01-28T14:35:58Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>plateliberror.py</string>
 			<key>lastUsed</key>
-			<date>2009-01-28T01:00:58Z</date>
+			<date>2009-01-28T16:18:35Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>Multiplatemod-concise.py</string>
+			<key>lastUsed</key>
+			<date>2009-01-28T16:18:38Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>Multiplatemod.py</string>
+			<key>lastUsed</key>
+			<date>2009-01-28T16:34:27Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>MakeRealPlate.py</string>
 			<key>lastUsed</key>
-			<date>2009-01-28T01:00:53Z</date>
+			<date>2009-01-28T14:51:31Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>Multiplatemod-concise-errortest.py</string>
+			<key>lastUsed</key>
+			<date>2009-01-28T16:35:34Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>plate.py</string>
 			<key>lastUsed</key>
-			<date>2009-01-28T01:00:46Z</date>
+			<date>2009-01-28T16:35:34Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>well.py</string>
 			<key>lastUsed</key>
-			<date>2009-01-28T00:17:19Z</date>
+			<date>2009-01-28T16:17:39Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -61,28 +79,134 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>.gitignore</key>
+		<key>MakeRealPlate.py</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>48</integer>
 				<key>line</key>
+				<integer>59</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
 				<integer>1</integer>
+				<key>line</key>
+				<integer>59</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>48</integer>
+				<key>line</key>
+				<integer>59</integer>
+			</dict>
+		</dict>
+		<key>Multiplatemod-concise-errortest.py</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>59</integer>
+				<key>line</key>
+				<integer>46</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>9</integer>
+		</dict>
+		<key>Multiplatemod-concise.py</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>33</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>10</integer>
+		</dict>
+		<key>Multiplatemod.py</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>30</integer>
+				<key>line</key>
+				<integer>15</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>7</integer>
+		</dict>
+		<key>plate.py</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>20</integer>
+				<key>line</key>
+				<integer>15</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>27</integer>
+		</dict>
+		<key>plateliberror.py</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>18</integer>
+				<key>line</key>
+				<integer>13</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>well.py</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>71</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>17</integer>
+		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>.gitignore</string>
+		<string>MakeRealPlate.py</string>
+		<string>Multiplatemod.py</string>
+		<string>Multiplatemod-concise.py</string>
+		<string>well.py</string>
+		<string>plate.py</string>
+		<string>Multiplatemod-concise-errortest.py</string>
+		<string>plateliberror.py</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{444, 195}, {817, 720}}</string>
+	<string>{{186, 204}, {1494, 824}}</string>
 </dict>
 </plist>

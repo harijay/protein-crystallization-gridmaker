@@ -47,9 +47,9 @@ class Masterplate(object):
 				for x in self.nums:
 					try:
 						vol = self.getwell(y,x).wellcomponentdict[solvent] 		
-						outfile.write("\t%3.3f " % round(vol))
+						outfile.write("\t%s" % int(round(vol)))
 					except KeyError, e:
-						outfile.write("\t%3.3f " % 0 )
+						outfile.write("\t%s" % int(0) )
 			outfile.write("\n")
 		outfile.close()
 def main():

@@ -13,17 +13,22 @@ import masterplate,plate,component
 
 def main():
 	mp = masterplate.Masterplate(2000)
-	p = plate.Plate("A1""H12",mp)
+	p = plate.Plate("A1","H12",mp)
+	
 	c = component.Component("CaAc2",2000,100000)
 	p.gradient_along_x(mp,c,0,200)
 	
 	peg400 = component.Component("peg400",50,100000)
-	p.constant_concentration(mp,peg400,32):
+	p.gradient_along_y(mp,peg400,22,30)
 	
-	b = component.Component("ph8.0", 1000,100000)
-	p.constant_concentration(mp,b,100)
+	buff = component.Component("ph8.0", 1000,100000)
+	p.constant_concentration(mp,buff,100)
 	
-	mp.writefileforforumulatrix("CM610GradientonlyCaAc2")
+	Water = component.Component("100.00% Water",100,100000)
+	p.fill_water(mp,Water)
+	
+	mp.makefileforformulatrix("CM610GradienCaAc2AndPeg400ph8p0.dl.txt")
+	
 if __name__ == '__main__':
 	main()
 

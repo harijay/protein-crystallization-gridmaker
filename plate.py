@@ -148,6 +148,9 @@ class Plate(object):
 	def constant_salt(self,masterplate,Component,finalconc):
 		self.pushtomasterplate(masterplate,Component,finalconc,finalconc,"constant")
 
+	def constant_concentration(self,masterplate,Component,finalconc):
+		self.pushtomasterplate(masterplate,Component,finalconc,finalconc,"constant")
+		
 	def push_component_to_column_on_masterplate(self,masterplate,Component,finalconc,columnnum):
 		if columnnum not in self.nums:
 			raise plateliberror.PlatelibException("Specified column number not in sub plate")
