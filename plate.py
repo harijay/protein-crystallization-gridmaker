@@ -145,6 +145,9 @@ class Plate(object):
 	def push_component_uniform_to_masterplate(self,masterplate,Component,finalconc):
 		self.pushtomasterplate(masterplate,Component,finalconc,finalconc,"constant")				
 
+	def constant_salt(self,masterplate,Component,finalconc):
+		self.pushtomasterplate(masterplate,Component,finalconc,finalconc,"constant")
+
 	def push_component_to_column_on_masterplate(self,masterplate,Component,finalconc,columnnum):
 		if columnnum not in self.nums:
 			raise plateliberror.PlatelibException("Specified column number not in sub plate")
@@ -162,9 +165,15 @@ class Plate(object):
 	def push_gradient_start_stop_x(self,masterplate,Component,start,stop):
 		self.pushtomasterplate(masterplate,Component,start,stop,"alongnum")
 	
+	def gradient_along_x(self,masterplate,Component,start,stop):
+		self.pushtomasterplate(masterplate,Component,start,stop,"alongnum")
+		
 	def push_gradient_start_stop_y(self,masterplate,Component,start,stop):
 		self.pushtomasterplate(masterplate,Component,start,stop,"alongalpha")
 	
+	def gradient_along_y(self,masterplate,Component,start,stop):
+		self.pushtomasterplate(masterplate,Component,start,stop,"alongalpha")
+		
 	def push_gradient_list_x(self,masterplate,Component,gradientlist):
 		self.pushlisttomasterplate(masterplate,Component,gradientlist,"alongnum")
 	
