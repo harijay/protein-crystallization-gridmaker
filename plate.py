@@ -4,7 +4,7 @@
 plate.py
 
 Created by Hariharan Jayaram on 2009-01-25.
-Copyright (c) 2009 __MyCompanyName__. All rights reserved.
+Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
 import sys
@@ -14,6 +14,10 @@ import masterplate
 import component
 
 class Plate(object):
+	# The all singing all dancing plate class
+	# To create a plate plate = Plate ("A1", "H12") creates a full 96 well plate
+	# To create a smaller plate plate = Plate("A1", "D6").
+	# Main methods used are in section   REFINED methods to fill components 
 	gridstart = None
 	gridend = None
 	numwells = None
