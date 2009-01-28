@@ -132,9 +132,12 @@ class Plate(object):
 
 #  REFINED methods to fill components 
 	def push_component_to_row_on_masterplate(self,masterplate,Component,finalconc,rowalpha):
-		rowalpha = rowalpha[0]
+		try:
+			rowalpha = rowalpha[0]
+		except Exception:
+			raise plateliberror.PlatelibException("Specified plate index %s not in sub plate : cannot fill component to row" % rowalpha )
 		if rowalpha not in self.alphas:
-			raise plateliberror.PlatelibExtension("Specified plate alphabet index not in sub plate")
+			raise plateliberror.PlatelibException("Specified plate alphabet index not in sub plate")
 		self.specifyconstantalongnum(finalconc)
 		for x in self.nums:
 			welltofill = masterplate.getwell(rowalpha,x).addcomponent(Component,float(self.xgradientlist[self.nums.index(x)]))
@@ -144,7 +147,7 @@ class Plate(object):
 
 	def push_component_to_column_on_masterplate(self,masterplate,Component,finalconc,columnnum):
 		if columnnum not in self.nums:
-			raise plateliberror.PlatelibExtension("Specified column number not in sub plate")
+			raise plateliberror.PlatelibException("Specified column number not in sub plate")
 		self.specifyconstantalongalpha(finalconc)
 		for y in self.alphas:
 			welltofill = masterplate.getwell(y,columnnum).addcomponent(Component,float(self.ygradientlist[self.alphas.index(y)])) 
@@ -191,7 +194,8 @@ class Plate(object):
 				try:
 					self.push_buffer_to_row_on_masterplate(masterplate,simple_component_list[elem],finalconclist[elem],row_list_alphas[elem])
 				except plateliberror.PlatelibException, pex:
-					print "Please carefully check lists for components , concentrations and row alphabets: %s" % pex.message()
+					newmessage = "Please carefully check lists for components , concentrations and row alphabets: %s" % pex.message
+					pex.message = newmessage
 					raise pex
 		else:
 			raise plateliberror.PlatelibException("Lists Unequal :Please carefully check lists for components , concentrations and row alphabets")
@@ -202,7 +206,8 @@ class Plate(object):
 				try:
 					self.push_buffer_to_column_on_masterplate(masterplate,simple_component_list[elem],finalconclist[elem],col_list_nums[elem])
 				except plateliberror.PlatelibException, pex:
-					print "Please carefully check lists for components , concentrations and column numbers: %s" % pex.message()
+					newmessage = "Please carefully check lists for components , concentrations and column numbers: %s" % pex.message
+					pex.message = newmessage
 					raise pex
 		else:
 			raise plateliberror.PlatelibException("Lists Unequal :Please carefully check lists for components , concentrations and column numbers")
