@@ -4,7 +4,7 @@
 MakeRealPlate.py
 
 Created by Hariharan Jayaram on 2009-01-26.
-Copyright (c) 2009 __MyCompanyName__. All rights reserved.
+Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
 import sys
@@ -13,6 +13,9 @@ import plate,masterplate,component
 
 
 def main():
+	# A real world test plate made . With 4 different Calcium concentrations
+	# Four different pHs and 6 different pegs
+	# For CM610 optimization
 	mp = masterplate.Masterplate(2000)
 	p = plate.Plate("A1","D6",mp)
 	p2 = plate.Plate("A7","D12",mp)

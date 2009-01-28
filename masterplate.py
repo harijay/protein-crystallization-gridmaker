@@ -4,7 +4,7 @@
 masterplate.py
 
 Created by Hariharan Jayaram on 2009-01-24.
-Copyright (c) 2009 __MyCompanyName__. All rights reserved.
+Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
 import sys
@@ -12,6 +12,7 @@ import os
 import well
 import component
 class Masterplate(object):
+	# A master plate class . Holds the plate dictionary and methods to return static well instances 
 	alphas = map(chr, range(65, 73))
 	nums = [1,2,3,4,5,6,7,8,9,10,11,12]
 	ordered_keys = []

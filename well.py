@@ -4,7 +4,7 @@
 well.py
 
 Created by Hariharan Jayaram on 2009-01-24.
-Copyright (c) 2009 __MyCompanyName__. All rights reserved.
+Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
 import sys
@@ -13,6 +13,9 @@ import component
 import componentlist
 import plateliberror
 class Well(object):
+	# A well class that modifies itself by adding components and reports to the
+	# Componentlist when any component is added
+	# well.about is a tostring() method
 	wellcomponentlist = componentlist.ComponentList()
 	def __init__(self,alpha,num,vol):
 		self.alpha = alpha
