@@ -11,6 +11,7 @@ import sys
 import os
 import well
 import component
+import csv
 class Masterplate(object):
 	# A master plate class . Holds the plate dictionary and methods to return static well instances 
 	alphas = map(chr, range(65, 73))
@@ -39,18 +40,25 @@ class Masterplate(object):
 		self.getwell("A",1).getmastercomponentlist().listcontents()
 	
 	def makefileforformulatrix(self,filename):
-		outfile = open("%s" % filename,"write")
-		outfile.write("DeepWell.pd.txt\t\t\n")
+		outfile = open("%s" % filename,"wb")
+		tabwriter = csv.writer(outfile,dialect=csv.excel_tab)
+		header = []
+		header.extend(["DeepWell.pd.txt","",""])
+		tabwriter.writerow(header)
+		#outfile.write("\n")
+		solventline = []
 		for solvent in well.Well.wellcomponentlist.componentfactory:
-			outfile.write("%s\t\t" % solvent)
+			solventline.extend(["%s" % solvent,"",""])
 			for y in self.alphas:
 				for x in self.nums:
 					try:
 						vol = self.getwell(y,x).wellcomponentdict[solvent] 		
-						outfile.write("\t%s" % int(round(vol)))
+						solventline.append("%s" % int(round(vol)))
 					except KeyError, e:
-						outfile.write("\t%s" % int(0) )
-			outfile.write("\n")
+						solventline.append("%s" % int(0))
+			tabwriter.writerow(solventline)
+			solventline = []			
+			#outfile.write("\n")
 		outfile.close()
 def main():
 	sys.path.append("/Users/hari")
