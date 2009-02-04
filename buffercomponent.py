@@ -40,6 +40,9 @@ class SimpleBuffer(component.Component):
 		return self.conc_base
 	
 	def volumes_given_counter(self,bufferb,bufferfinal):
+		if bufferfinal.ph < min(self.ph,bufferb.ph) or  bufferfinal.ph > max(self.ph,bufferb.ph):
+			phexceeded_range_error = plateliberror.PlatelibException("pH Exceeded range- buffers should bracket ph %s" % bufferfinal.ph)
+			raise phexceeded_range_error
 		molratio_net = bufferfinal.molratio
 		vself =  (molratio_net*bufferb.conc_acid - bufferb.conc_base) / ( self.conc_base - bufferb.conc_base - molratio_net*self.conc_acid + molratio_net*bufferb.conc_acid)
 		vother = 1 - vself
@@ -50,7 +53,7 @@ def main():
 	b = SimpleBuffer("trishigh",1.0,100000,8.5,8.06)
 	b2 = SimpleBuffer("trislow",0.8,100000,7.5,8.06)
 	
-	bfinal = SimpleBuffer("bfinal",1.0,200000,7.5,8.06)
+	bfinal = SimpleBuffer("bfinal",1.0,200000,7.2,8.06)
 	print b.volumes_given_counter(b2,bfinal)
 	print bfinal.conc
 

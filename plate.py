@@ -317,10 +317,10 @@ def main():
 	# Fill the buffers :
 	buffertrislow = buffercomponent.SimpleBuffer("trisph7.5",1.0,100000,7.5,8.03)
 	buffertrishigh = buffercomponent.SimpleBuffer("trisph8.5",1.0,100000,8.5,8.03)
-	p1.ph_gradient_alongy(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
-	p2.ph_gradient_alongy(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
-	p3.ph_gradient_alongy(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
-	p4.ph_gradient_alongy(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
+	p1.ph_list_alongy(mp,buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0])
+	p2.ph_list_alongy(mp,buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0])
+	p3.ph_list_alongy(mp,buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0])
+	p4.ph_list_alongy(mp,buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0])
 	
 	
 	
@@ -337,7 +337,7 @@ def main():
 	p4.fill_water(mp,water)
 	mp.printwellinfo()
 	mp.printsolventlistsnapshot()
-	mp.makefileforformulatrix("phgradientwithcomponentsalongy.dl.txt")
+	mp.makefileforformulatrix("phlistwithcomponentsalongy.dl.txt")
 	
 	
 if __name__ == '__main__':
