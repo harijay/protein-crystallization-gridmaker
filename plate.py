@@ -242,15 +242,54 @@ class Plate(object):
 		self.push_gradient_list_x(masterplate,buffer2,concentrations_buffer2)
 
 			
-	def ph_gradient_alongy():
-		pass
+	def ph_gradient_alongy(self,masterplate,buffer1,buffer2,finalconc,startph,stopph):
+		concentrations_buffer1= []
+		concentrations_buffer2= []
+		for ph in self.calcgradientalongalpha(startph,stopph):
+			calcbuffer =  buffercomponent.SimpleBuffer("calcbuffer",1.0,buffer1.vol + buffer2.vol,ph,buffer1.pka)
+			volume_ratios = buffer1.volumes_given_counter(buffer2,calcbuffer)
+			vtotal = (finalconc*masterplate.volofeachwell)/calcbuffer.conc
+			v1 = vtotal * volume_ratios[0]
+			v2 = vtotal* volume_ratios[1]
+			c1 = (v1*buffer1.stockconc)/masterplate.volofeachwell
+			c2 = (v2*buffer2.stockconc)/masterplate.volofeachwell
+			concentrations_buffer1.append(c1)
+			concentrations_buffer2.append(c2)
+		self.push_gradient_list_y(masterplate,buffer1,concentrations_buffer1)
+		self.push_gradient_list_y(masterplate,buffer2,concentrations_buffer2)
+
+	def ph_list_alongx(self,masterplate,buffer1,buffer2,finalconc,phlist):
+		concentrations_buffer1= []
+		concentrations_buffer2= []		
+		for ph in phlist:
+			calcbuffer =  buffercomponent.SimpleBuffer("calcbuffer",1.0,buffer1.vol + buffer2.vol,ph,buffer1.pka)
+			volume_ratios = buffer1.volumes_given_counter(buffer2,calcbuffer)
+			vtotal = (finalconc*masterplate.volofeachwell)/calcbuffer.conc
+			v1 = vtotal * volume_ratios[0]
+			v2 = vtotal* volume_ratios[1]
+			c1 = (v1*buffer1.stockconc)/masterplate.volofeachwell
+			c2 = (v2*buffer2.stockconc)/masterplate.volofeachwell
+			concentrations_buffer1.append(c1)
+			concentrations_buffer2.append(c2)
+
+		self.push_gradient_list_x(masterplate,buffer1,concentrations_buffer1)
+		self.push_gradient_list_x(masterplate,buffer2,concentrations_buffer2)
 		
-	def ph_list_alongx():
-		pass
-		
-	def ph_list_alongy():
-		pass
-		
+	def ph_list_alongy(self,masterplate,buffer1,buffer2,finalconc,phlist):
+		concentrations_buffer1= []
+		concentrations_buffer2= []
+		for ph in phlist:
+			calcbuffer =  buffercomponent.SimpleBuffer("calcbuffer",1.0,buffer1.vol + buffer2.vol,ph,buffer1.pka)
+			volume_ratios = buffer1.volumes_given_counter(buffer2,calcbuffer)
+			vtotal = (finalconc*masterplate.volofeachwell)/calcbuffer.conc
+			v1 = vtotal * volume_ratios[0]
+			v2 = vtotal* volume_ratios[1]
+			c1 = (v1*buffer1.stockconc)/masterplate.volofeachwell
+			c2 = (v2*buffer2.stockconc)/masterplate.volofeachwell
+			concentrations_buffer1.append(c1)
+			concentrations_buffer2.append(c2)
+		self.push_gradient_list_y(masterplate,buffer1,concentrations_buffer1)
+		self.push_gradient_list_y(masterplate,buffer2,concentrations_buffer2)
 				
 def main():
 	peg400 = component.Component("peg400",60,500000)
@@ -278,10 +317,10 @@ def main():
 	# Fill the buffers :
 	buffertrislow = buffercomponent.SimpleBuffer("trisph7.5",1.0,100000,7.5,8.03)
 	buffertrishigh = buffercomponent.SimpleBuffer("trisph8.5",1.0,100000,8.5,8.03)
-	p1.ph_gradient_alongx(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
-	p2.ph_gradient_alongx(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
-	p3.ph_gradient_alongx(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
-	p4.ph_gradient_alongx(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
+	p1.ph_gradient_alongy(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
+	p2.ph_gradient_alongy(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
+	p3.ph_gradient_alongy(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
+	p4.ph_gradient_alongy(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
 	
 	
 	
@@ -298,7 +337,7 @@ def main():
 	p4.fill_water(mp,water)
 	mp.printwellinfo()
 	mp.printsolventlistsnapshot()
-	mp.makefileforformulatrix("phgradientwithcomponents.dl.txt")
+	mp.makefileforformulatrix("phgradientwithcomponentsalongy.dl.txt")
 	
 	
 if __name__ == '__main__':
