@@ -12,7 +12,7 @@ import os
 import plateliberror
 import masterplate
 import component
-
+import buffercomponent
 class Plate(object):
 	# The all singing all dancing plate class
 	# To create a plate plate = Plate ("A1", "H12") creates a full 96 well plate
@@ -223,7 +223,35 @@ class Plate(object):
 					raise pex
 		else:
 			raise plateliberror.PlatelibException("Lists Unequal :Please carefully check lists for components , concentrations and column numbers")
+	
+	def ph_gradient_alongx(self,masterplate,buffer1,buffer2,finalconc,startph,stopph):
+		concentrations_buffer1= []
+		concentrations_buffer2 = []
+		for ph in self.calcgradientalongnum(startph,stopph):
+			calcbuffer =  buffercomponent.SimpleBuffer("calcbuffer",1.0,buffer1.vol + buffer2.vol,ph,buffer1.pka)
+			volume_ratios = buffer1.volumes_given_counter(buffer2,calcbuffer)
+			vtotal = (finalconc*masterplate.volofeachwell)/calcbuffer.conc
+			v1 = vtotal * volume_ratios[0]
+			v2 = vtotal* volume_ratios[1]
+			c1 = (v1*buffer1.stockconc)/masterplate.volofeachwell
+			c2 = (v2*buffer2.stockconc)/masterplate.volofeachwell
+			concentrations_buffer1.append(c1)
+			concentrations_buffer2.append(c2)
+
+		self.push_gradient_list_x(masterplate,buffer1,concentrations_buffer1)
+		self.push_gradient_list_x(masterplate,buffer2,concentrations_buffer2)
+
 			
+	def ph_gradient_alongy():
+		pass
+		
+	def ph_list_alongx():
+		pass
+		
+	def ph_list_alongy():
+		pass
+		
+				
 def main():
 	peg400 = component.Component("peg400",60,500000)
 	salt1 = component.Component("NH42SO4",1000,100000)
@@ -231,12 +259,9 @@ def main():
 	salt3 = component.Component("CaAc2",1000,100000)
 	salt4 = component.Component("MgCl2",2000,100000)
 	water = component.Component("water",100,100000)
-	ph4p5 = component.Component("ph4.5",1000,100000)
-	ph5p5 = component.Component("ph5.5",1000,100000)
-	ph6p5 = component.Component("ph6.5",1000,100000)
-	ph7p5 = component.Component("ph7.5",1000,100000)
-	ph8p5 = component.Component("ph8.5",1000,100000)
-	ph9p5 = component.Component("ph9.5",1000,100000)
+
+
+	
 	water = component.Component("water",100,100000)
 	mp = masterplate.Masterplate(2000)
 	p1 = Plate("A1","D6",mp)
@@ -251,36 +276,15 @@ def main():
 	p4.push_component_uniform_to_masterplate(mp,salt4,200)
 	
 	# Fill the buffers :
-	p1.push_buffer_to_column_on_masterplate(mp,ph4p5,100,1)
-	p2.push_buffer_to_column_on_masterplate(mp,ph4p5,100,7)
-	p3.push_buffer_to_column_on_masterplate(mp,ph4p5,100,1)
-	p4.push_buffer_to_column_on_masterplate(mp,ph4p5,100,7)
-
-	p1.push_buffer_to_column_on_masterplate(mp,ph5p5,100,2)
-	p2.push_buffer_to_column_on_masterplate(mp,ph5p5,100,8)
-	p3.push_buffer_to_column_on_masterplate(mp,ph5p5,100,2)
-	p4.push_buffer_to_column_on_masterplate(mp,ph5p5,100,8)
+	buffertrislow = buffercomponent.SimpleBuffer("trisph7.5",1.0,100000,7.5,8.03)
+	buffertrishigh = buffercomponent.SimpleBuffer("trisph8.5",1.0,100000,8.5,8.03)
+	p1.ph_gradient_alongx(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
+	p2.ph_gradient_alongx(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
+	p3.ph_gradient_alongx(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
+	p4.ph_gradient_alongx(mp,buffertrislow,buffertrishigh,0.1,7.5,8.5)
 	
-	p1.push_buffer_to_column_on_masterplate(mp,ph6p5,100,3)
-	p2.push_buffer_to_column_on_masterplate(mp,ph6p5,100,9)
-	p3.push_buffer_to_column_on_masterplate(mp,ph6p5,100,3)
-	p4.push_buffer_to_column_on_masterplate(mp,ph6p5,100,9)
 	
-	p1.push_buffer_to_column_on_masterplate(mp,ph7p5,100,4)
-	p2.push_buffer_to_column_on_masterplate(mp,ph7p5,100,10)
-	p3.push_buffer_to_column_on_masterplate(mp,ph7p5,100,4)
-	p4.push_buffer_to_column_on_masterplate(mp,ph7p5,100,10)
 	
-	p1.push_buffer_to_column_on_masterplate(mp,ph8p5,100,5)
-	p2.push_buffer_to_column_on_masterplate(mp,ph8p5,100,11)
-	p3.push_buffer_to_column_on_masterplate(mp,ph8p5,100,5)
-	p4.push_buffer_to_column_on_masterplate(mp,ph8p5,100,11)
-	
-	p1.push_buffer_to_column_on_masterplate(mp,ph9p5,100,6)
-	p2.push_buffer_to_column_on_masterplate(mp,ph9p5,100,12)
-	p3.push_buffer_to_column_on_masterplate(mp,ph9p5,100,6)
-	p4.push_buffer_to_column_on_masterplate(mp,ph9p5,100,12)
-		
 	# Setup the peg gradients
 	p1.push_gradient_list_y(mp,peg400,[25,30,38,45])
 	p2.push_gradient_list_y(mp,peg400,[25,30,38,45])
@@ -294,7 +298,7 @@ def main():
 	p4.fill_water(mp,water)
 	mp.printwellinfo()
 	mp.printsolventlistsnapshot()
-	mp.makefileforformulatrix("tmp.txt")
+	mp.makefileforformulatrix("phgradientwithcomponents.dl.txt")
 	
 	
 if __name__ == '__main__':

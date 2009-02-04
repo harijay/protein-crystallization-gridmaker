@@ -39,7 +39,7 @@ class Well(object):
 		Component.deplete(voltoadd)
 		self.wellcomponentdict[Component.name] = voltoadd
 		self.deplete(voltoadd)
-	
+
 	def calctotalvol(self):
 		total = 0
 		for i in self.wellcomponentdict:
