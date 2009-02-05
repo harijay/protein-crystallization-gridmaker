@@ -290,7 +290,72 @@ class Plate(object):
 			concentrations_buffer2.append(c2)
 		self.push_gradient_list_y(masterplate,buffer1,concentrations_buffer1)
 		self.push_gradient_list_y(masterplate,buffer2,concentrations_buffer2)
-				
+	
+	def maketo100_alongx(self,masterplate,c1,c2,finalconc,startcomponent1,stopcomponent1):		
+		unequal_error = plateliberror.PlatelibException("unequal concentrations for %s and %s" % (c1.name , c2.name))
+		if c1.stockconc != c2.stockconc:
+			raise unequal_error
+		concentrations_buffer1= []
+		concentrations_buffer2= [] 
+		totalsum = finalconc*masterplate.volofeachwell/c1.stockconc
+		percent = totalsum/100.0
+		for amt1 in self.calcgradientalongnum(startcomponent1,stopcomponent1):
+			conc1=  amt1*c1.stockconc*percent/masterplate.volofeachwell
+			conc2 = (100.0-amt1)*c2.stockconc*percent/masterplate.volofeachwell
+			concentrations_buffer1.append(conc1)
+			concentrations_buffer2.append(conc2)
+		self.push_gradient_list_x(masterplate,c1,concentrations_buffer1)
+		self.push_gradient_list_x(masterplate,c2,concentrations_buffer2)
+	
+	def maketo100_alongy(self,masterplate,c1,c2,startcomponent1,stopcomponent1):
+		unequal_error = plateliberror.PlatelibException("unequal concentrations for %s and %s" % (c1.name , c2.name))
+		if c1.stockconc != c2.stockconc:
+			raise unequal_error
+		concentrations_buffer1= []
+		concentrations_buffer2= []
+		totalsum = finalconc*masterplate.volofeachwell/c1.stockconc
+		percent = totalsum/100.0
+		for amt1 in self.calcgradientalongalpha(startcomponent1,stopcomponent1):
+			conc1=  amt1*c1.stockconc*percent/masterplate.volofeachwell
+			conc2 = (100.0-amt1)*c2.stockconc*percent/masterplate.volofeachwell
+			concentrations_buffer1.append(conc1)
+			concentrations_buffer2.append(conc2)
+		self.push_gradient_list_y(masterplate,c1,concentrations_buffer1)
+		self.push_gradient_list_y(masterplate,c2,concentrations_buffer2)
+		
+	def maketo100_listx(self,masterplate,c1,c2,finalconc,listxcomponent1):
+		unequal_error = plateliberror.PlatelibException("unequal concentrations for %s and %s" % (c1.name , c2.name))
+		if c1.stockconc != c2.stockconc:
+			raise unequal_error
+		concentrations_buffer1= []
+		concentrations_buffer2= []
+		totalsum = finalconc*masterplate.volofeachwell/c1.stockconc
+		percent = totalsum/100.0
+		for amt1 in listxcomponent1:
+			conc1=  amt1*c1.stockconc*percent/masterplate.volofeachwell
+			conc2 = (100.0-amt1)*c2.stockconc*percent/masterplate.volofeachwell
+			concentrations_buffer1.append(conc1)
+			concentrations_buffer2.append(conc2)
+		self.push_gradient_list_x(masterplate,c1,concentrations_buffer1)
+		self.push_gradient_list_x(masterplate,c2,concentrations_buffer2)
+		
+	def maketo100_listy(self,masterplate,c1,c2,finalconc,listycomponent1):
+		unequal_error = plateliberror.PlatelibException("unequal concentrations for %s and %s" % (c1.name , c2.name))
+		if c1.stockconc != c2.stockconc:
+			raise unequal_error
+		concentrations_buffer1= []
+		concentrations_buffer2= []
+		totalsum = finalconc*masterplate.volofeachwell/c1.stockconc
+		percent = totalsum/100.0
+		for amt1 in listycomponent1:
+			conc1=  amt1*c1.stockconc*percent/masterplate.volofeachwell
+			conc2 = (100.0-amt1)*c2.stockconc*percent/masterplate.volofeachwell
+			concentrations_buffer1.append(conc1)
+			concentrations_buffer2.append(conc2)
+		self.push_gradient_list_y(masterplate,c1,concentrations_buffer1)
+		self.push_gradient_list_y(masterplate,c2,concentrations_buffer2)
+	
+	
 def main():
 	peg400 = component.Component("peg400",60,500000)
 	salt1 = component.Component("NH42SO4",1000,100000)
@@ -330,6 +395,10 @@ def main():
 	p3.push_gradient_list_y(mp,peg400,[25,30,38,45])
 	p4.push_gradient_list_y(mp,peg400,[25,30,38,45])
 	
+	t1 = component.Component("tb1",2.0,100000)
+	t2 = component.Component("tb2",2.0,10000)
+	p1.maketo100_alongx(mp,t1,t2,0.1,30,80)
+	
 	# Water top up 
 	p1.fill_water(mp,water)
 	p2.fill_water(mp,water)
@@ -337,7 +406,7 @@ def main():
 	p4.fill_water(mp,water)
 	mp.printwellinfo()
 	mp.printsolventlistsnapshot()
-	mp.makefileforformulatrix("phlistwithcomponentsalongx.dl.txt")
+	mp.makefileforformulatrix("itsnotwoking.dl.txt")
 	
 	
 if __name__ == '__main__':
