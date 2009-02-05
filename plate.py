@@ -296,7 +296,7 @@ class Plate(object):
 		if c1.stockconc != c2.stockconc:
 			raise unequal_error
 		concentrations_buffer1= []
-		concentrations_buffer2= [] 
+		concentrations_buffer2= []
 		totalsum = finalconc*masterplate.volofeachwell/c1.stockconc
 		percent = totalsum/100.0
 		for amt1 in self.calcgradientalongnum(startcomponent1,stopcomponent1):
