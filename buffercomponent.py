@@ -12,7 +12,7 @@ import os
 import plateliberror
 import component
 class SimpleBuffer(component.Component):
-	
+	 
 	def __init__(self,name,stockconc,totalvol,ph,pka):
 		self.name = name
 		self.stockconc = stockconc
@@ -33,7 +33,7 @@ class SimpleBuffer(component.Component):
 		
 	def get_conc_acid(self):
 		self.conc_acid = (self.stockconc)/(1 + self.molratio)
-		return self.conc_acid
+		return self.conc_acid 
 		
 	def get_conc_base(self):
 		self.conc_base = self.molratio * self.conc_acid
