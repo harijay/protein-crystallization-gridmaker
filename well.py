@@ -52,9 +52,12 @@ class Well(object):
 		for i in self.wellcomponentdict:
 			aboutstr = aboutstr + "Component %s : %3.3f " % (i,self.wellcomponentdict[i]) +  "Total:%s" % total 
 		return aboutstr
+	
 		
 	def fillwithwater(self,Component):
 		key = Component.name
+		newname = "100.00 % Water"
+		Component.name = newname
 		if key not in Well.wellcomponentlist.componentfactory:
 			Well.wellcomponentlist.addcomponent(Component)
 		self.wellcomponentdict[Component.name] = self.volleft
