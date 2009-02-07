@@ -57,10 +57,14 @@ class Well(object):
 	def fillwithwater(self,Component):
 		key = Component.name
 		newname = "100.00 % Water"
-		Component.name = newname
+		if key != "100.00 % Water":
+			Component.name = newname
+			
 		if key not in Well.wellcomponentlist.componentfactory:
 			Well.wellcomponentlist.addcomponent(Component)
 		self.wellcomponentdict[Component.name] = self.volleft
+	
+		
 	def getmastercomponentlist(self):
 		return Well.wellcomponentlist
 			
