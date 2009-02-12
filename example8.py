@@ -26,7 +26,7 @@ def main():
 	p.gradient_along_x(mp,peg400,31,33)
 	p.gradient_along_y(mp,c,100,200)
 	p.fill_water(mp,water)
-	mp.makefileforformulatrix("bromide_cyf143r_constantph.dl.txt")
+	mp.makefileforformulatrix("example8.dl.txt")
 	
 if __name__ == '__main__':
 	main()
