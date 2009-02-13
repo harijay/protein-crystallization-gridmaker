@@ -7,8 +7,6 @@ Created by Hariharan Jayaram on 2009-01-25.
 Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
-import sys
-import os
 import plateliberror
 import masterplate
 import component
@@ -170,18 +168,26 @@ class Plate(object):
 	
 	def gradient_along_x(self,masterplate,Component,start,stop):
 		self.pushtomasterplate(masterplate,Component,start,stop,"alongnum")
-		
+	
+	def gradientlist_along_x(self,masterplate,Component,gradientlist):
+		self.pushlisttomasterplate(masterplate,Component,gradientlist,"alongnum")
+	
 	def push_gradient_start_stop_y(self,masterplate,Component,start,stop):
 		self.pushtomasterplate(masterplate,Component,start,stop,"alongalpha")
 	
 	def gradient_along_y(self,masterplate,Component,start,stop):
 		self.pushtomasterplate(masterplate,Component,start,stop,"alongalpha")
-		
+	
+	def gradientlist_along_y(self,masterplate,Component,gradientlist):
+		self.pushlisttomasterplate(masterplate,Component,gradientlist,"alongalpha")
+	
 	def push_gradient_list_x(self,masterplate,Component,gradientlist):
 		self.pushlisttomasterplate(masterplate,Component,gradientlist,"alongnum")
-	
+
+
 	def push_gradient_list_y(self,masterplate,Component,gradientlist):
 		self.pushlisttomasterplate(masterplate,Component,gradientlist,"alongalpha")
+
 
 	def fill_water(self,masterplate,Water):
 		for y in self.alphas:

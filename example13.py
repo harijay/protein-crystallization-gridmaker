@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# encoding: utf-8
 """
 example1.py
 
@@ -18,8 +16,9 @@ def main():
 	# Four different pHs and 6 different pegs
 	# For CM610 optimization
 	# Please also consult other examples. This example uses the most wordy syntax to make each setp very obvious. No Shortcuts here
+
+
 	
-	# First define the masterplate.Masterplate with volume in µl i.e 2000 for 2 ml
 	mp = masterplate.Masterplate(2000)
 	
 	# Define each plate with the left corner well and right corner well . Feed the plate its containing master plate i.e
@@ -51,50 +50,35 @@ def main():
 
 	water = component.Component("100.00% Water",1000,300000)
 	
-	p1.push_gradient_list_x(mp,peg400,[28,30,32,34,36,38])
-	p2.push_gradient_list_x(mp,peg400,[28,30,32,34,36,38])
-	p3.push_gradient_list_x(mp,peg400,[28,30,32,34,36,38])
-	p4.push_gradient_list_x(mp,peg400,[28,30,32,34,36,38])
+	p1.gradientlist_along_x(mp,peg400,[28,30,32,34,36,38])
+	p2.gradientlist_along_x(mp,peg400,[28,30,32,34,36,38])
+	p3.gradientlist_along_x(mp,peg400,[28,30,32,34,36,38])
+	p4.gradientlist_along_x(mp,peg400,[28,30,32,34,36,38])
 	
 	p1.constant_salt(mp,cacl,0.05)
 	p2.constant_salt(mp,cacl,0.1)
 	p3.constant_salt(mp,cacl,0.15)
 	p4.constant_salt(mp,cacl,0.2)
 	
-	# Here we fill each sub plate with water : in example 3 you will see a shortcut way of doing this 
+	# Using mapped components instead of column by column ( example 12)
 	
-	p1.push_buffer_to_row_on_masterplate(mp,b1,100,"A")
-	p1.push_buffer_to_row_on_masterplate(mp,b2,100,"B")
-	p1.push_buffer_to_row_on_masterplate(mp,b3,100,"C")
-	p1.push_buffer_to_row_on_masterplate(mp,b4,100,"D")
-			
-
-	p2.push_buffer_to_row_on_masterplate(mp,b1,100,"A")
-	p2.push_buffer_to_row_on_masterplate(mp,b2,100,"B")
-	p2.push_buffer_to_row_on_masterplate(mp,b3,100,"C")
-	p2.push_buffer_to_row_on_masterplate(mp,b4,100,"D")
-	
-	p3.push_buffer_to_row_on_masterplate(mp,b1,100,"E")
-	p3.push_buffer_to_row_on_masterplate(mp,b2,100,"F")
-	p3.push_buffer_to_row_on_masterplate(mp,b3,100,"G")
-	p3.push_buffer_to_row_on_masterplate(mp,b4,100,"H")
-	
-	p4.push_buffer_to_row_on_masterplate(mp,b1,100,"E")
-	p4.push_buffer_to_row_on_masterplate(mp,b2,100,"F")
-	p4.push_buffer_to_row_on_masterplate(mp,b3,100,"G")
-	p4.push_buffer_to_row_on_masterplate(mp,b4,100,"H")
-						
+	p1.push_components_mapped_to_row(mp, [b1,b2,b3,b4], [100,100,100,100],["A","B","C","D"])
+	p2.push_components_mapped_to_row(mp,[b1,b2,b3,b4],[100,100,100,100],["A","B","C","D"])
+	p3.push_components_mapped_to_row(mp,[b1,b2,b3,b4],[100,100,100,100],["E","F","G","H"])
+	p4.push_components_mapped_to_row(mp,[b1,b2,b3,b4],[100,100,100,100],["E","F","G","H"])
+					
 	p1.fill_water(mp,water)
 	p2.fill_water(mp,water)
 	p3.fill_water(mp,water)
 	p4.fill_water(mp,water)
 	
+
 	# You can output the composition of each well to standard out with the masterplate.Masterplate.printwellinfo() method
 	mp.printwellinfo()
 	
 	# And now to write the dispense list for the formulatrix robot
 	
-	mp.makefileforformulatrix("example12.dl.txt")
+	mp.makefileforformulatrix("example13.dl.txt")
 
 if __name__ == '__main__':
 	

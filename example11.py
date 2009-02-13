@@ -7,9 +7,10 @@ Created by Hariharan Jayaram on 2009-01-26.
 Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
-import sys
-import os
-import plate,masterplate,component
+
+import plate
+import masterplate
+import component
 
 
 def main():

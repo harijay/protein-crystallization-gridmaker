@@ -8,9 +8,8 @@ Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
 import sys
-import os
+
 import well
-import component
 import csv
 class Masterplate(object):
 	# A master plate class . Holds the plate dictionary and methods to return static well instances 

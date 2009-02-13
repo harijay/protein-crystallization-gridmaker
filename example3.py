@@ -7,9 +7,10 @@ Created by Hariharan Jayaram on 2009-01-28.
 Copyright (c) 2009 __MyCompanyName__. All rights reserved.
 """
 
-import sys
-import os
-import plate,masterplate,component
+
+import plate
+import masterplate
+import component
 
 def main():
 	# Create the plate with volume of 2 mls or 2000 microlitre : volume should be in microlitres ( eg 2000 µl)

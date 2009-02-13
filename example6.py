@@ -7,9 +7,9 @@ Created by Hariharan Jayaram on 2009-01-28.
 Copyright (c) 2009 __MyCompanyName__. All rights reserved.
 """
 
-import sys
-import os
-import masterplate,plate,component
+import masterplate
+import plate
+import component
 
 def main():
 # Create the plate in this case each well will have 2000 ml 

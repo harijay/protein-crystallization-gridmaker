@@ -7,8 +7,6 @@ Created by Hariharan Jayaram on 2009-01-24.
 Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
-import sys
-import os
 import component
 import componentlist
 import plateliberror

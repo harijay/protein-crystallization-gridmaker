@@ -7,8 +7,6 @@ Created by Hariharan Jayaram on 2009-01-25.
 Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
-import sys
-import os
 
 class PlatelibException(Exception):
 	# An error class 

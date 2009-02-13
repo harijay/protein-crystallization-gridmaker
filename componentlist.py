@@ -7,8 +7,7 @@ Created by Hariharan Jayaram on 2009-01-25.
 Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
-import sys
-import os
+
 import component
 class ComponentList(object):
 	# A factory which holds all the components . I am not yet using this appropriately.
