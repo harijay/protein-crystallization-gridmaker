@@ -7,7 +7,6 @@ Created by Hariharan Jayaram on 2009-01-24.
 Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
-import component
 import componentlist
 import plateliberror
 class Well(object):
@@ -31,7 +30,11 @@ class Well(object):
 	def addcomponent(self,Component,finalconc):
 		key = Component.name
 		if key not in Well.wellcomponentlist.componentfactory:
-			Well.wellcomponentlist.addcomponent(Component)
+			Well.wellcomponentlist.insertcomponent(Component)
+		if key in self.wellcomponentdict:
+			#If a component has already been added to well . Then repeating additing will mess up concentration intended
+			inconsistent_conc_warning = plateliberror.PlatelibException("Component %s already dispensed into Well:%s,%s: Inconsistent concentrations will result from Repeat DISPENSE.Please check plate configuration or combine both additions into one" % (Component.name,self.alpha,self.num))
+			raise inconsistent_conc_warning
 		voltoadd = (self.vol * finalconc)/(Component.stockconc)
 #		print "Adding %s of\t%s to well %s,%s get a conc of\t%s" % (voltoadd,Component.name,self.alpha,self.num,finalconc)
 		Component.deplete(voltoadd)
@@ -59,7 +62,7 @@ class Well(object):
 			Component.name = newname
 			
 		if key not in Well.wellcomponentlist.componentfactory:
-			Well.wellcomponentlist.addcomponent(Component)
+			Well.wellcomponentlist.insertcomponent(Component)
 		self.wellcomponentdict[Component.name] = self.volleft
 	
 		

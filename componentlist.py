@@ -8,14 +8,13 @@ Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
 
-import component
 class ComponentList(object):
 	# A factory which holds all the components . I am not yet using this appropriately.
 	# Need to read up on the Factory pattern or something 
 	componentfactory = {}
 	def __init__(self):
 		ComponentList.componentfactory = {}
-	def addcomponent(self,Component):
+	def insertcomponent(self,Component):
 		self.componentfactory[Component.name] = Component
 	def getcomponent(self,componentname):
 		return self.componentfactory[componentname]
@@ -27,9 +26,9 @@ class ComponentList(object):
 def main():
 	rack = ComponentList()
 	c1 = component.Component("peg400",50,100)
-	rack.addcomponent(c1)
+	rack.insertcomponent(c1)
 	c2 = component.Component("CaCl2",2000,10)
-	rack.addcomponent(c2)
+	rack.insertcomponent(c2)
 	rack.listcontents()
 
 

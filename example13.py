@@ -66,7 +66,8 @@ def main():
 	p2.push_components_mapped_to_row(mp,[b1,b2,b3,b4],[100,100,100,100],["A","B","C","D"])
 	p3.push_components_mapped_to_row(mp,[b1,b2,b3,b4],[100,100,100,100],["E","F","G","H"])
 	p4.push_components_mapped_to_row(mp,[b1,b2,b3,b4],[100,100,100,100],["E","F","G","H"])
-					
+	p4.push_components_mapped_to_row(mp,[b1,b2,b3,b4],[100,100,100,100],["E","F","G","H"])
+    
 	p1.fill_water(mp,water)
 	p2.fill_water(mp,water)
 	p3.fill_water(mp,water)
