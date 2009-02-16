@@ -50,28 +50,29 @@ def main():
 
 	water = component.Component("100.00% Water",1000,300000)
 	
-	p1.gradientlist_along_x(mp,peg400,[28,30,32,34,36,38])
-	p2.gradientlist_along_x(mp,peg400,[28,30,32,34,36,38])
-	p3.gradientlist_along_x(mp,peg400,[28,30,32,34,36,38])
-	p4.gradientlist_along_x(mp,peg400,[28,30,32,34,36,38])
+	p1.gradientlist_along_x(peg400,[28,30,32,34,36,38])
+	p2.gradientlist_along_x(peg400,[28,30,32,34,36,38])
+	p3.gradientlist_along_x(peg400,[28,30,32,34,36,38])
+	p4.gradientlist_along_x(peg400,[28,30,32,34,36,38])
 	
-	p1.constant_salt(mp,cacl,0.05)
-	p2.constant_salt(mp,cacl,0.1)
-	p3.constant_salt(mp,cacl,0.15)
-	p4.constant_salt(mp,cacl,0.2)
+	p1.constant_salt(cacl,0.05)
+	p2.constant_salt(cacl,0.1)
+	p3.constant_salt(cacl,0.15)
+	p4.constant_salt(cacl,0.2)
 	
 	# Using mapped components instead of column by column ( example 12)
 	
-	p1.push_components_mapped_to_row(mp, [b1,b2,b3,b4], [100,100,100,100],["A","B","C","D"])
-	p2.push_components_mapped_to_row(mp,[b1,b2,b3,b4],[100,100,100,100],["A","B","C","D"])
-	p3.push_components_mapped_to_row(mp,[b1,b2,b3,b4],[100,100,100,100],["E","F","G","H"])
-	p4.push_components_mapped_to_row(mp,[b1,b2,b3,b4],[100,100,100,100],["E","F","G","H"])
-	p4.push_components_mapped_to_row(mp,[b1,b2,b3,b4],[100,100,100,100],["E","F","G","H"])
-    
-	p1.fill_water(mp,water)
-	p2.fill_water(mp,water)
-	p3.fill_water(mp,water)
-	p4.fill_water(mp,water)
+	p1.push_components_mapped_to_row( [b1,b2,b3,b4], [100,100,100,100],["A","B","C","D"])
+	p2.push_components_mapped_to_row([b1,b2,b3,b4],[100,100,100,100],["A","B","C","D"])
+	p3.push_components_mapped_to_row([b1,b2,b3,b4],[100,100,100,100],["E","F","G","H"])
+	p4.push_components_mapped_to_row([b1,b2,b3,b4],[100,100,100,100],["E","F","G","H"])
+        #The statement here will trigger the repeat addition to same well error
+        #p4.push_components_mapped_to_row([b1,b2,b3,b4],[100,100,100,100],["E","F","G","H"])
+        
+        p1.fill_water(water)
+	p2.fill_water(water)
+	p3.fill_water(water)
+	p4.fill_water(water)
 	
 
 	# You can output the composition of each well to standard out with the masterplate.Masterplate.printwellinfo() method

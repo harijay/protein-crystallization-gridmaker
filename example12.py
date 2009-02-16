@@ -51,43 +51,43 @@ def main():
 
 	water = component.Component("100.00% Water",1000,300000)
 	
-	p1.push_gradient_list_x(mp,peg400,[28,30,32,34,36,38])
-	p2.push_gradient_list_x(mp,peg400,[28,30,32,34,36,38])
-	p3.push_gradient_list_x(mp,peg400,[28,30,32,34,36,38])
-	p4.push_gradient_list_x(mp,peg400,[28,30,32,34,36,38])
+	p1.push_gradient_list_x(peg400,[28,30,32,34,36,38])
+	p2.push_gradient_list_x(peg400,[28,30,32,34,36,38])
+	p3.push_gradient_list_x(peg400,[28,30,32,34,36,38])
+	p4.push_gradient_list_x(peg400,[28,30,32,34,36,38])
 	
-	p1.constant_salt(mp,cacl,0.05)
-	p2.constant_salt(mp,cacl,0.1)
-	p3.constant_salt(mp,cacl,0.15)
-	p4.constant_salt(mp,cacl,0.2)
+	p1.constant_salt(cacl,0.05)
+	p2.constant_salt(cacl,0.1)
+	p3.constant_salt(cacl,0.15)
+	p4.constant_salt(cacl,0.2)
 	
 	# Here we fill each sub plate with water : in example 3 you will see a shortcut way of doing this 
 	
-	p1.push_buffer_to_row_on_masterplate(mp,b1,100,"A")
-	p1.push_buffer_to_row_on_masterplate(mp,b2,100,"B")
-	p1.push_buffer_to_row_on_masterplate(mp,b3,100,"C")
-	p1.push_buffer_to_row_on_masterplate(mp,b4,100,"D")
+	p1.push_buffer_to_row_on_masterplate(b1,100,"A")
+	p1.push_buffer_to_row_on_masterplate(b2,100,"B")
+	p1.push_buffer_to_row_on_masterplate(b3,100,"C")
+	p1.push_buffer_to_row_on_masterplate(b4,100,"D")
 			
 
-	p2.push_buffer_to_row_on_masterplate(mp,b1,100,"A")
-	p2.push_buffer_to_row_on_masterplate(mp,b2,100,"B")
-	p2.push_buffer_to_row_on_masterplate(mp,b3,100,"C")
-	p2.push_buffer_to_row_on_masterplate(mp,b4,100,"D")
+	p2.push_buffer_to_row_on_masterplate(b1,100,"A")
+	p2.push_buffer_to_row_on_masterplate(b2,100,"B")
+	p2.push_buffer_to_row_on_masterplate(b3,100,"C")
+	p2.push_buffer_to_row_on_masterplate(b4,100,"D")
 	
-	p3.push_buffer_to_row_on_masterplate(mp,b1,100,"E")
-	p3.push_buffer_to_row_on_masterplate(mp,b2,100,"F")
-	p3.push_buffer_to_row_on_masterplate(mp,b3,100,"G")
-	p3.push_buffer_to_row_on_masterplate(mp,b4,100,"H")
+	p3.push_buffer_to_row_on_masterplate(b1,100,"E")
+	p3.push_buffer_to_row_on_masterplate(b2,100,"F")
+	p3.push_buffer_to_row_on_masterplate(b3,100,"G")
+	p3.push_buffer_to_row_on_masterplate(b4,100,"H")
 	
-	p4.push_buffer_to_row_on_masterplate(mp,b1,100,"E")
-	p4.push_buffer_to_row_on_masterplate(mp,b2,100,"F")
-	p4.push_buffer_to_row_on_masterplate(mp,b3,100,"G")
-	p4.push_buffer_to_row_on_masterplate(mp,b4,100,"H")
+	p4.push_buffer_to_row_on_masterplate(b1,100,"E")
+	p4.push_buffer_to_row_on_masterplate(b2,100,"F")
+	p4.push_buffer_to_row_on_masterplate(b3,100,"G")
+	p4.push_buffer_to_row_on_masterplate(b4,100,"H")
 						
-	p1.fill_water(mp,water)
-	p2.fill_water(mp,water)
-	p3.fill_water(mp,water)
-	p4.fill_water(mp,water)
+	p1.fill_water(water)
+	p2.fill_water(water)
+	p3.fill_water(water)
+	p4.fill_water(water)
 	
 	# You can output the composition of each well to standard out with the masterplate.Masterplate.printwellinfo() method
 	mp.printwellinfo()

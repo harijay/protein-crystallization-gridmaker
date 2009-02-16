@@ -23,10 +23,10 @@ def main():
 	buffer = component.Component("TrispH8.2",1000,100000)
 	peg400 = component.Component("peg400",50,150000)
 	water = component.Component("100.0% Water",100,1000000)
-	p.constant_salt(mp,buffer,100)
-	p.gradient_along_x(mp,peg400,31,33)
-	p.gradient_along_y(mp,c,100,200)
-	p.fill_water(mp,water)
+	p.constant_salt(buffer,100)
+	p.gradient_along_x(peg400,31,33)
+	p.gradient_along_y(c,100,200)
+	p.fill_water(water)
 	mp.makefileforformulatrix("example8.dl.txt")
 	
 if __name__ == '__main__':

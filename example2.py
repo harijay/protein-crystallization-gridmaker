@@ -22,19 +22,19 @@ def main():
 	c = component.Component("CaAc2",2000,100000)
 	
 # Gradient along X dispensed a gradient of component along x ( i.e along number axis  on 96 well plate)
-	p.gradient_along_x(mp,c,0,200)
+	p.gradient_along_x(c,0,200)
 	
 	peg400 = component.Component("peg400",50,100000)
 # Gradient along Y dispensed a gradient of component along y ( i.e along alphabet axis)
-	p.gradient_along_y(mp,peg400,22,30)
+	p.gradient_along_y(peg400,22,30)
 	
 
 	buff = component.Component("ph8.0", 1000,100000)
 # Constant for the well uses constant_concentration
-	p.constant_concentration(mp,buff,100)
+	p.constant_concentration(buff,100)
 	
 	Water = component.Component("100.00% Water",100,100000)
-	p.fill_water(mp,Water)
+	p.fill_water(Water)
 # The makefileforformulatrix method of masterplate.Masterplate Class writes the dispense list
 	mp.makefileforformulatrix("example2.dl.txt")
 	

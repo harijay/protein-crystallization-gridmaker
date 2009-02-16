@@ -35,10 +35,10 @@ def main():
 	peg400 = component.Component("peg400",50,100000)
 	
 	# Now we will lay down a peg gradient along the x axis 
-	p.gradient_along_x(mp,peg400,18,25)
-	p2.gradient_along_x(mp,peg400,18,25)
-	p3.gradient_along_x(mp,peg400,18,25)
-	p4.gradient_along_x(mp,peg400,18,25)
+	p.gradient_along_x(peg400,18,25)
+	p2.gradient_along_x(peg400,18,25)
+	p3.gradient_along_x(peg400,18,25)
+	p4.gradient_along_x(peg400,18,25)
 	
 	
 	# Now lets define each buffer component
@@ -52,36 +52,36 @@ def main():
 	# In example3 you will see the shortcut methods for the same procedure. Also the push_component_to_column_on_masterplate(self,masterplate,Component,finalconc,columnnum) from the 
 	# plate.Plate class will do the same except for the column instead of row 
 	
-	p.push_buffer_to_row_on_masterplate(mp,b1,100,"A")
-	p.push_buffer_to_row_on_masterplate(mp,b2,100,"B")
-	p.push_buffer_to_row_on_masterplate(mp,b3,100,"C")
-	p.push_buffer_to_row_on_masterplate(mp,b4,100,"D")
+	p.push_buffer_to_row_on_masterplate(b1,100,"A")
+	p.push_buffer_to_row_on_masterplate(b2,100,"B")
+	p.push_buffer_to_row_on_masterplate(b3,100,"C")
+	p.push_buffer_to_row_on_masterplate(b4,100,"D")
 	
-	p2.push_buffer_to_row_on_masterplate(mp,b1,100,"A")
-	p2.push_buffer_to_row_on_masterplate(mp,b2,100,"B")
-	p2.push_buffer_to_row_on_masterplate(mp,b3,100,"C")
-	p2.push_buffer_to_row_on_masterplate(mp,b4,100,"D")
+	p2.push_buffer_to_row_on_masterplate(b1,100,"A")
+	p2.push_buffer_to_row_on_masterplate(b2,100,"B")
+	p2.push_buffer_to_row_on_masterplate(b3,100,"C")
+	p2.push_buffer_to_row_on_masterplate(b4,100,"D")
 	
-	p3.push_buffer_to_row_on_masterplate(mp,b1,100,"E")
-	p3.push_buffer_to_row_on_masterplate(mp,b2,100,"F")
-	p3.push_buffer_to_row_on_masterplate(mp,b3,100,"G")
-	p3.push_buffer_to_row_on_masterplate(mp,b4,100,"H")
+	p3.push_buffer_to_row_on_masterplate(b1,100,"E")
+	p3.push_buffer_to_row_on_masterplate(b2,100,"F")
+	p3.push_buffer_to_row_on_masterplate(b3,100,"G")
+	p3.push_buffer_to_row_on_masterplate(b4,100,"H")
 	
-	p4.push_buffer_to_row_on_masterplate(mp,b1,100,"E")
-	p4.push_buffer_to_row_on_masterplate(mp,b2,100,"F")
-	p4.push_buffer_to_row_on_masterplate(mp,b3,100,"G")
-	p4.push_buffer_to_row_on_masterplate(mp,b4,100,"H")
+	p4.push_buffer_to_row_on_masterplate(b1,100,"E")
+	p4.push_buffer_to_row_on_masterplate(b2,100,"F")
+	p4.push_buffer_to_row_on_masterplate(b3,100,"G")
+	p4.push_buffer_to_row_on_masterplate(b4,100,"H")
 	
 	salt = component.Component("CaAc2",1000,100000)
 	
 	# Finally we add a constant salt additive to the entire sub plate. Plate 1 has 25 mM , plate 2 , 50 mM , plate 3 , 100 mM , and plate 4 ,150 mM
 	# This method is also called plate.Plate.constant_salt(self,masterplate,Component,finalconc):
-	# so you could very well say p.constant_salt(mp,salt,25)
+	# so you could very well say p.constant_salt(salt,25)
 	
-	p.push_component_uniform_to_masterplate(mp,salt,25)
-	p2.push_component_uniform_to_masterplate(mp,salt,50)
-	p3.push_component_uniform_to_masterplate(mp,salt,100)
-	p4.push_component_uniform_to_masterplate(mp,salt,150)
+	p.push_component_uniform_to_masterplate(salt,25)
+	p2.push_component_uniform_to_masterplate(salt,50)
+	p3.push_component_uniform_to_masterplate(salt,100)
+	p4.push_component_uniform_to_masterplate(salt,150)
 	
 	# Finally we define the water component : Here the concentration is arbitrary! The platelib just fills water to the final volume of the well ( 2000 µl)
 	
@@ -89,10 +89,10 @@ def main():
 	
 	# Here we fill each sub plate with water : in example 3 you will see a shortcut way of doing this 
 	
-	p.fill_water(mp,water)
-	p2.fill_water(mp,water)
-	p3.fill_water(mp,water)
-	p4.fill_water(mp,water)
+	p.fill_water(water)
+	p2.fill_water(water)
+	p3.fill_water(water)
+	p4.fill_water(water)
 	# You can output the composition of each well to standard out with the masterplate.Masterplate.printwellinfo() method
 	mp.printwellinfo()
 	

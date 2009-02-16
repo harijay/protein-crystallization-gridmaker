@@ -21,21 +21,21 @@ def main():
 	c = component.Component("CaAc2",2000,100000)
 	
 # Gradient along X dispensed a gradient of component along x ( i.e along number axis  on 96 well plate)
-	p.gradient_along_x(mp,c,0,200)
+	p.gradient_along_x(c,0,200)
 	
 	peg400 = component.Component("peg400",50,100000)
 # Gradient along Y dispensed a gradient of component along y ( i.e along alphabet axis)
-	p.gradient_along_y(mp,peg400,22,30)
+	p.gradient_along_y(peg400,22,30)
 	
 # Now we will use a Tribuffer as described by Newman J et al 
 	t1 = component.Component("tribfferpH4",1.0,100000)
 	t2 = component.Component("tribufferpH10",1.0,100000)
 
 # Say we want to do a pH from 4 to 10 along the x axis we do
-	p.maketo100_alongx(mp,t1,t2,0.1,0,100)
+	p.maketo100_alongx(t1,t2,0.1,0,100)
 	
 	Water = component.Component("100.00% Water",100,100000)
-	p.fill_water(mp,Water)
+	p.fill_water(Water)
 # The makefileforformulatrix method of masterplate.Masterplate Class writes the dispense list
 	mp.makefileforformulatrix("example6_newman.dl.txt")
 	

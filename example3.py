@@ -28,10 +28,10 @@ def main():
 	
 	# Now define the gradients along x ( i.e the numeral axes )
 	
-	p.gradient_along_x(mp,peg400,18,25)
-	p2.gradient_along_x(mp,peg400,18,25)
-	p3.gradient_along_x(mp,peg400,18,25)
-	p4.gradient_along_x(mp,peg400,18,25)
+	p.gradient_along_x(peg400,18,25)
+	p2.gradient_along_x(peg400,18,25)
+	p3.gradient_along_x(peg400,18,25)
+	p4.gradient_along_x(peg400,18,25)
 	
 	# Define the four buffers that will be added along the alphabet axes 
 	b1 = component.Component("ph7p6",1000,100000)
@@ -44,22 +44,22 @@ def main():
 	pwhole = plate.Plate("A1","H12",mp)
 	
 	# Use this to add the components using the plate methods push_components_mapped_to_row, Note that the pattern is specified according to the order 
-	pwhole.push_components_mapped_to_row(mp,[b1,b2,b3,b4,b1,b2,b3,b4],[100,100,100,100,100,100,100,100],["A","B","C","D","E","F","G","H"])
+	pwhole.push_components_mapped_to_row([b1,b2,b3,b4,b1,b2,b3,b4],[100,100,100,100,100,100,100,100],["A","B","C","D","E","F","G","H"])
 	
 	
 	# We want each quadrant ( i.e plate p , p2 , p3 and p4 ) to have a constant concentration of Calcium Chloride
 	# We use the method Plate.constant_concentration(self,masterplate,Component,finalconc):
 	salt = component.Component("CaAc2",1000,100000)
 	
-	p.constant_concentration(mp,salt,25)
-	p2.constant_concentration(mp,salt,50)
-	p3.constant_concentration(mp,salt,100)
-	p4.constant_concentration(mp,salt,150)
+	p.constant_concentration(salt,25)
+	p2.constant_concentration(salt,50)
+	p3.constant_concentration(salt,100)
+	p4.constant_concentration(salt,150)
 	
 	# Now its time to fill the rest with water calling the fill_water method. We can do it for whole plate using pwhole defined from ( A1 to H12)
 	# The water concentration is arbitratrily assigned to a value. Has no implications on dispensed volume
 	water = component.Component("100.00% Water",1000,300000)
-	pwhole.fill_water(mp,water)
+	pwhole.fill_water(water)
 	# You can output the composition of each well to stdout using the printwellinfo() method of masterplate.Masterplate class
 	mp.printwellinfo()
 	
