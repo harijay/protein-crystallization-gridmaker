@@ -218,7 +218,7 @@ class Plate(object):
 					raise pex
 		else:
 			raise plateliberror.PlatelibException("Lists Unequal :Please carefully check lists for components , concentrations and row alphabets")
-						
+				
 	def push_components_mapped_to_column(self,simple_component_list,finalconclist,col_list_nums):
 		if len(simple_component_list) == len(finalconclist) == len(col_list_nums):
 			for elem in range(len(simple_component_list)):
@@ -230,6 +230,7 @@ class Plate(object):
 					raise pex
 		else:
 			raise plateliberror.PlatelibException("Lists Unequal :Please carefully check lists for components , concentrations and column numbers")
+	
 	
 	def ph_gradient_alongx(self,buffer1,buffer2,finalconc,startph,stopph):
 		concentrations_buffer1= []
@@ -362,7 +363,13 @@ class Plate(object):
 		self.push_gradient_list_y(c1,concentrations_buffer1)
 		self.push_gradient_list_y(c2,concentrations_buffer2)
 	
+	def mapped_rowlist(self,simple_component_list,finalconclist):
+		self.push_components_mapped_to_column(simple_component_list,finalconclist,self.alphas):
+		
 	
+	def mapped_columnlist(self,simple_component_list,finalconclist):
+		self.push_components_mapped_to_row(simple_component_list,finalconclist,self.nums):
+		
 def main():
 	peg400 = component.Component("peg400",60,500000)
 	salt1 = component.Component("NH42SO4",1000,100000)
