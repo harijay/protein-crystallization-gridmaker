@@ -363,12 +363,12 @@ class Plate(object):
 		self.push_gradient_list_y(c1,concentrations_buffer1)
 		self.push_gradient_list_y(c2,concentrations_buffer2)
 	
-	def mapped_rowlist(self,simple_component_list,finalconclist):
-		self.push_components_mapped_to_column(simple_component_list,finalconclist,self.alphas):
+	def components_mapped_row(self,simple_component_list,finalconclist):
+		self.push_components_mapped_to_column(simple_component_list,finalconclist,self.alphas)
 		
 	
-	def mapped_columnlist(self,simple_component_list,finalconclist):
-		self.push_components_mapped_to_row(simple_component_list,finalconclist,self.nums):
+	def components_mapped_column(self,simple_component_list,finalconclist):
+		self.push_components_mapped_to_row(simple_component_list,finalconclist,self.nums)
 		
 def main():
 	peg400 = component.Component("peg400",60,500000)
