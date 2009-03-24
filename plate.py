@@ -315,7 +315,7 @@ class Plate(object):
 		self.push_gradient_list_x(c1,concentrations_buffer1)
 		self.push_gradient_list_x(c2,concentrations_buffer2)
 	
-	def maketo100_alongy(self,c1,c2,startcomponent1,stopcomponent1):
+	def maketo100_alongy(self,c1,c2,finalconc,startcomponent1,stopcomponent1):
 		unequal_error = plateliberror.PlatelibException("unequal concentrations for %s and %s" % (c1.name , c2.name))
 		if c1.stockconc != c2.stockconc:
 			raise unequal_error
