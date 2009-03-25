@@ -25,7 +25,7 @@ class Well(object):
 	def deplete(self,vol):
 		self.volleft = self.volleft - vol
 		if self.volleft < 0:
-			raise plateliberror.PlatelibException("Well volume exceeded")
+			raise plateliberror.PlatelibException("Well volume exceeded when trying to add component: Increase concentration of stock for any component and retry")
 				
 	def addcomponent(self,Component,finalconc):
 		key = Component.name
@@ -70,13 +70,14 @@ class Well(object):
 		return Well.wellcomponentlist
 			
 def main():
+	import component
 	w = Well("A",1,2000)
 	rack = w.getmastercomponentlist()
 	c1 = component.Component("peg400",50,100)
-	rack.addcomponent(c1)
+	rack.insertcomponent(c1)
 	
 	c2 = component.Component("CaCl2",2000,100000)
-	rack.addcomponent(c2)
+	rack.insertcomponent(c2)
 	
 	c = rack.getcomponent("CaCl2")
 	
