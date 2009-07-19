@@ -52,7 +52,7 @@ class Masterplate(object):
 				for x in self.nums:
 					try:
 						vol = self.getwell(y,x).wellcomponentdict[solvent] 		
-						solventline.append("%s" % int(round(vol)))
+						solventline.append("%s" % vol)
 					except KeyError, e:
 						solventline.append("%s" % int(0))
 			tabwriter.writerow(solventline)
