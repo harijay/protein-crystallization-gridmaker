@@ -17,7 +17,7 @@ class Component(object):
 	# 200 mM or you could also use 1 in which case final conc will be 0.2 
 	def __init__(self,name,stockconc,totalvol):
 		self.vol = totalvol
-		self.name = name
+		self.name = name.strip()
 		self.stockconc = stockconc
 		
 	def deplete(self,volused):

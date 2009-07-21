@@ -11,6 +11,8 @@ import sys
 
 import well
 import csv
+import platepdfwriter
+
 class Masterplate(object):
 	# A master plate class . Holds the plate dictionary and methods to return static well instances 
 	alphas = map(chr, range(65, 73))
@@ -59,6 +61,13 @@ class Masterplate(object):
 			solventline = []			
 			#outfile.write("\n")
 		outfile.close()
+
+        def printpdf(self,filename):
+            outfile = "%s.pdf" % filename
+            mypdf = platepdfwriter.Platepdfwriter(filename)
+            mypdf.gen_pdf(self)
+
+
 def main():
 	sys.path.append("/Users/hari")
 	import gridder

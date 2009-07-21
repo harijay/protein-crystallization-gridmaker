@@ -99,7 +99,7 @@ def main():
 	# And now to write the dispense list for the formulatrix robot
 	
 	mp.makefileforformulatrix("example1.dl.txt")
-
+	mp.printpdf("example1")
 if __name__ == '__main__':
 	
 	main()

@@ -13,7 +13,7 @@ import component
 class SimpleBuffer(component.Component):
 	 
 	def __init__(self,name,stockconc,totalvol,ph,pka):
-		self.name = name
+		self.name = name.strip()
 		self.stockconc = stockconc
 		self.vol = totalvol
 		self.ph = ph
