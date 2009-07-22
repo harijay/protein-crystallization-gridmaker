@@ -21,6 +21,7 @@ class Well(object):
 		self.vol = vol 
 		self.wellcomponentdict = {}
 		self.volleft = vol
+                self.component_name_object_map = {}
 		
 	def deplete(self,vol):
 		self.volleft = self.volleft - vol
@@ -40,7 +41,9 @@ class Well(object):
 		Component.deplete(voltoadd)
 		self.wellcomponentdict[Component.name] = voltoadd
 		self.deplete(voltoadd)
-
+                self.components.append(Component.name)
+                self.component_name_object_map[Component.name] = Component
+                
 	def calctotalvol(self):
 		total = 0
 		for i in self.wellcomponentdict:
@@ -48,7 +51,7 @@ class Well(object):
 		return total
 		
 	def about(self):
-		aboutstr = "WELL: %s%s \t" % (self.alpha , self.num)
+		aboutstr = "WELL:%s%s\t" % (self.alpha , self.num)
 		total = self.calctotalvol()
 		for i in self.wellcomponentdict:
 			aboutstr = aboutstr + "Component %s : %3.3f " % (i,self.wellcomponentdict[i]) +  "Total:%s" % total 

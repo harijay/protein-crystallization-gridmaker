@@ -94,7 +94,7 @@ def main():
 	p3.fill_water(water)
 	p4.fill_water(water)
 	# You can output the composition of each well to standard out with the masterplate.Masterplate.printwellinfo() method
-	mp.printwellinfo()
+#	mp.printwellinfo()
 	
 	# And now to write the dispense list for the formulatrix robot
 	

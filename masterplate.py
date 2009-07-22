@@ -6,6 +6,7 @@ masterplate.py
 Created by Hariharan Jayaram on 2009-01-24.
 Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
+import os.path
 
 import sys
 
@@ -39,8 +40,14 @@ class Masterplate(object):
 	
 	def printsolventlistsnapshot(self):
 		self.getwell("A",1).getmastercomponentlist().listcontents()
-	
+
+
 	def makefileforformulatrix(self,filename):
+                import os
+                if ".dl.txt" in filename:
+                    pass
+                else:
+                    filename = "".join(os.path.splitext(filename)[0],".dl.txt")
 		outfile = open("%s" % filename,"wb")
 		tabwriter = csv.writer(outfile,dialect=csv.excel_tab)
 		header = []
@@ -63,6 +70,10 @@ class Masterplate(object):
 		outfile.close()
 
         def printpdf(self,filename):
+            if "pdf" in filename:
+                pass
+            else:
+                filename = "".join([os.path.splitext(filename)[0],".pdf"])
             outfile = "%s.pdf" % filename
             mypdf = platepdfwriter.Platepdfwriter(filename)
             mypdf.gen_pdf(self)
