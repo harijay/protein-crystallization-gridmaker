@@ -13,12 +13,35 @@ class Platepdfwriter():
     scale_mult_y = 1.6
     fontsize_to_fit = 6
     mydicts = {}
+    alphas = ["A","B","C","D","E","F","G","H"]
+    mynums = [1,2,3,4,5,6,7,8,9,10,11,12]
 
     def __init__(self,filename):
         self.filename = filename
         self.canvas_obj = canvas.Canvas(self.filename,pagesize=letter)
+        
         self.canvas_obj.grid(self.make_listx(),self.make_listy())
+        self.label_axes()
         self.canvas_obj.setFont("Times-Roman", self.fontsize_to_fit)
+
+
+    def label_axes(self):
+        count = 0
+        cx = self.make_listx()
+        cy = self.make_listy()
+
+        for val in cx[:-1]:
+            self.canvas_obj.rotate(90)
+            self.canvas_obj.drawString(30,-40+(-val*0.35*mm),u"%s" %  self.alphas[count])
+            count = count + 1
+            self.canvas_obj.rotate(-90)
+        count = 0
+        for val in cy[:-1]:
+            self.canvas_obj.rotate(90)
+            self.canvas_obj.drawString(val+5*mm,-60,u"%s" %  self.mynums[count])
+            count = count + 1
+            self.canvas_obj.rotate(-90)
+
 
     def make_listx(self):
         xlist = []
@@ -92,7 +115,6 @@ class Platepdfwriter():
 
                     if solvent in mywell.component_name_object_map.keys():
                         if isinstance(mywell.component_name_object_map[solvent],buffercomponent.SimpleBuffer):
-                            print "ADFASDFASFD"
                             phcalcer.append(mywell.component_name_object_map[solvent])
                             if len(phcalcer) == 2 :
                             # Calculate pH and then print to sheet
