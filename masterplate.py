@@ -47,7 +47,7 @@ class Masterplate(object):
                 if ".dl.txt" in filename:
                     pass
                 else:
-                    filename = "".join(os.path.splitext(filename)[0],".dl.txt")
+                    filename = "".join(os.path.splitext(filename)[0] + ".dl.txt")
 		outfile = open("%s" % filename,"wb")
 		tabwriter = csv.writer(outfile,dialect=csv.excel_tab)
 		header = []
@@ -78,6 +78,14 @@ class Masterplate(object):
             mypdf = platepdfwriter.Platepdfwriter(filename)
             mypdf.gen_pdf(self)
 
+        def printpdfhuman(self,filename):
+            if "pdf" in filename:
+                pass
+            else:
+                filename = "".join([os.path.splitext(filename)[0],".pdf"])
+            outfile = "%s.pdf" % filename
+            mypdf = platepdfwriter.Platepdfwriter(filename)
+            mypdf.gen_pdf_human(self)
 
 def main():
 	sys.path.append("/Users/hari")

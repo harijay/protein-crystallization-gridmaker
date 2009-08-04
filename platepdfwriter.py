@@ -91,6 +91,84 @@ class Platepdfwriter():
             pos = pos + 1
         self.canvas_obj.showPage()
         self.canvas_obj.save()
+    def gen_pdf_human(self,masterplate):
+        import os
+        clabel_x = range(10,700,int(700/6))
+        print clabel_x
+        self.canvas_obj.rotate(90)
+        self.canvas_obj.drawString(10,-10,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
+        self.canvas_obj.rotate(-90)
+        pos = 1
+        component_data_written = []
+        import buffercomponent
+        component_poscount = 0
+        newline = 0
+        for y in self.make_listy()[:-1]:
+            for x in self.make_listx()[:-1]:
+                plate_num = masterplate.nums[self.make_listy().index(y)]
+                plate_alpha = masterplate.alphas[self.make_listx().index(x)]
+                mywell = masterplate.getwell(plate_alpha,plate_num)
+                self.canvas_obj.rotate(90)
+                count = 0
+                phcalcer = []
+                
+                for solvent in sorted(mywell.wellcomponentdict.keys()):
+                    count = count + 1
+                    if len (solvent) > 10:
+                        printed_solvent = "".join(solvent.split())[:10]
+                    else:
+                        printed_solvent = solvent
+                    try:
+                        current_component = mywell.component_name_object_map[solvent]
+                        if  current_component not in component_data_written:
+                            component_data_written.append(current_component)
+                            try:
+                                self.canvas_obj.setFont("Times-Roman", 5)
+                                if component_poscount >= 6 :
+                                    component_poscount = component_poscount - 6
+                                    newline = 10
+
+                                self.canvas_obj.drawString(clabel_x[component_poscount],-30 - newline,"Component:%s,%4.2f,%6.2f" % (current_component.name,current_component.stockconc,current_component.vol))
+                                print newline,component_poscount,clabel_x[component_poscount],"Component:%s,%4.2f,%6.2f" % (current_component.name,current_component.stockconc,current_component.vol)
+                                self.canvas_obj.setFont("Times-Roman", self.fontsize_to_fit)
+                                component_poscount = component_poscount + 1
+                            except IndexError, iex:
+                                pass
+                        else :
+                            pass
+
+                        conc = float(mywell.wellcomponentdict[solvent] * mywell.component_name_object_map[solvent].stockconc)/float(masterplate.volofeachwell)
+                        self.canvas_obj.drawString(y+1*mm,-x-count*3.5*mm,u"%10s:  %-6.2f" % (printed_solvent,conc))
+                    except KeyError , k:
+                        pass
+
+
+                    if solvent in mywell.component_name_object_map.keys():
+                        if isinstance(mywell.component_name_object_map[solvent],buffercomponent.SimpleBuffer):
+                            phcalcer.append(mywell.component_name_object_map[solvent])
+                            if len(phcalcer) == 2 :
+                            # Calculate pH and then print to sheet
+                                if phcalcer[0].pka != phcalcer[1].pka:
+                                    pass
+                                else:
+                                    import math
+                                    numerator = phcalcer[0].get_conc_base()*mywell.wellcomponentdict[phcalcer[0].name] + phcalcer[1].get_conc_base()*mywell.wellcomponentdict[phcalcer[1].name]
+                                    denominator = phcalcer[0].get_conc_acid()*mywell.wellcomponentdict[phcalcer[0].name]+ phcalcer[1].get_conc_acid()*mywell.wellcomponentdict[phcalcer[1].name]
+                                    ph = phcalcer[0].pka + math.log10(numerator/ denominator)
+                                    count = count + 1
+                                    self.canvas_obj.drawString(y+1*mm,-x-count*3.5*mm,"ph final:%.2f" % ph)
+                    
+#                for solvent in mywell.wellcomponentdict:
+#                    print solvent,mywell.wellcomponentdict[solvent]
+#                    print y+1*mm,x-4*pos*mm
+#                    self.canvas_obj.drawString(y+1*mm,-x-4*pos*mm,u"%s,%.1f\xB5l" % (solvent,mywell.wellcomponentdict[solvent]))
+#                    pos = pos + 1
+
+
+                self.canvas_obj.rotate(-90)
+
+        self.canvas_obj.showPage()
+        self.canvas_obj.save()
 
     def gen_pdf(self,masterplate):
         pos = 1
@@ -138,4 +216,5 @@ class Platepdfwriter():
         self.canvas_obj.save()
 
     #    c.grid([inch, 2*inch, 3*inch, 4*inch], [0.5*inch, inch, 1.5*inch, 2*inch, 2.5*inch])
+
 
