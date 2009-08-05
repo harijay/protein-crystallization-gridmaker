@@ -58,8 +58,9 @@ class PlateLandscapewriter():
 
     def gen_pdf_human(self,masterplate):
         masterplate = masterplate
-        import os
-        self.canvas_obj.drawString(10,10,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
+        import os,datetime
+        self.canvas_obj.drawString(10,30,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
+        self.canvas_obj.drawString(10,22,"%s" % datetime.datetime.now().ctime())
         pos = 1
         import buffercomponent
   
@@ -84,7 +85,7 @@ class PlateLandscapewriter():
                         printed_solvent = solvent
                     try:
                         conc = float(mywell.wellcomponentdict[solvent] * mywell.component_name_object_map[solvent].stockconc)/float(masterplate.volofeachwell)
-                        self.canvas_obj.drawString(x+0.5*mm,y+count*spacing,u"%-10s:%-4.2f" % (printed_solvent,conc))
+                        self.canvas_obj.drawString(x+0.5*mm,y+count*spacing,u"%-10s:%-4.3f" % (printed_solvent,conc))
                     except KeyError, h:
                         pass
         
