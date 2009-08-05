@@ -129,7 +129,7 @@ class Platepdfwriter():
                                     newline = 10
 
                                 self.canvas_obj.drawString(clabel_x[component_poscount],-30 - newline,"Component:%s,%4.2f,%6.2f" % (current_component.name,current_component.stockconc,current_component.vol))
-                                print newline,component_poscount,clabel_x[component_poscount],"Component:%s,%4.2f,%6.2f" % (current_component.name,current_component.stockconc,current_component.vol)
+                                print newline,component_poscount,clabel_x[component_poscount],"Component:%s , %4.2f , %6.2f" % (current_component.name,current_component.stockconc,current_component.vol)
                                 self.canvas_obj.setFont("Times-Roman", self.fontsize_to_fit)
                                 component_poscount = component_poscount + 1
                             except IndexError, iex:

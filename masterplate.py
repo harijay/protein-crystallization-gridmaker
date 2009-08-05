@@ -12,7 +12,7 @@ import sys
 
 import well
 import csv
-import platepdfwriter
+import pdfwriterlandscape
 
 class Masterplate(object):
 	# A master plate class . Holds the plate dictionary and methods to return static well instances 
@@ -74,8 +74,8 @@ class Masterplate(object):
                 pass
             else:
                 filename = "".join([os.path.splitext(filename)[0],".pdf"])
-            outfile = "%s.pdf" % filename
-            mypdf = platepdfwriter.Platepdfwriter(filename)
+            outfile = "%s_volumes.pdf" % filename
+            mypdf = pdfwriterlandscape.PlateLandscapewriter(filename)
             mypdf.gen_pdf(self)
 
         def printpdfhuman(self,filename):
@@ -84,13 +84,12 @@ class Masterplate(object):
             else:
                 filename = "".join([os.path.splitext(filename)[0],".pdf"])
             outfile = "%s.pdf" % filename
-            mypdf = platepdfwriter.Platepdfwriter(filename)
+            mypdf = pdfwriterlandscape.PlateLandscapewriter(filename)
             mypdf.gen_pdf_human(self)
 
 def main():
 	sys.path.append("/Users/hari")
-	import gridder
-	from gridder import masterplate
+	import masterplate
 	testplate = masterplate.Masterplate(2000)
 	testplate.printwellinfo()
 	pass
