@@ -74,9 +74,13 @@ class PlateLandscapewriter():
                 mywell = masterplate.getwell(ind_alpha,ind_num)
                 count = 0
                 phcalcer = []
+                spacing = 0 
                 # Total components to be written into this well is
                 total_components = len(mywell.wellcomponentdict.keys())
-                spacing = 2.0*cm/total_components
+                try :
+                    spacing = 2.0*cm/total_components
+                except ZeroDivisionError, z:
+                    pass
                 for solvent in sorted(mywell.wellcomponentdict.keys())[::-1]:
                     count = count + 1
                     if len (solvent) > 10:
@@ -84,8 +88,9 @@ class PlateLandscapewriter():
                     else:
                         printed_solvent = solvent
                     try:
-                        conc = float(mywell.wellcomponentdict[solvent] * mywell.component_name_object_map[solvent].stockconc)/float(masterplate.volofeachwell)
-                        self.canvas_obj.drawString(x+0.5*mm,y+count*spacing,u"%-10s:%-4.3f" % (printed_solvent,conc))
+                        if "100.00 % Water" not in mywell.component_name_object_map[solvent].name:
+                            conc = float(mywell.wellcomponentdict[solvent] * mywell.component_name_object_map[solvent].stockconc)/float(masterplate.volofeachwell)
+                            self.canvas_obj.drawString(x+0.5*mm,y+count*spacing,u"%-10s:%-4.3f" % (printed_solvent,conc))
                     except KeyError, h:
                         pass
         
@@ -124,9 +129,15 @@ class PlateLandscapewriter():
                 mywell = masterplate.getwell(ind_alpha,ind_num)
                 count = 0
                 phcalcer = []
+                spacing = 0
+
                 # Total components to be written into this well is
                 total_components = len(mywell.wellcomponentdict.keys())
-                spacing = 2.0*cm/total_components
+                try :
+                    spacing = 2.0*cm/total_components
+                except ZeroDivisionError , z :
+                    pass
+                
                 for solvent in sorted(mywell.wellcomponentdict.keys())[::-1]:
                     count = count + 1
                     if len (solvent) > 10:
@@ -227,20 +238,21 @@ if __name__=="__main__":
 
     water = component.Component("100.00% Water",1000,300000)
 
-    # Here we fill each sub plate with water : in example 3 you will see a shortcut way of doing this
+    buffer1 = buffercomponent.SimpleBuffer("pH 7.0",0.5,100000,7.0,8.4)
+    buffer2 = buffercomponent.SimpleBuffer("ph 8.0",0.5,100000,8.2,8.4)
+    crap6 = component.Component("aga5trg",100,100000)
+    pwhole.ph_gradient_alongy(buffer1,buffer2,0.1,7.2,8.0)
 
     p.fill_water(water)
     p2.fill_water(water)
     p3.fill_water(water)
     p4.fill_water(water)
 
-    buffer1 = buffercomponent.SimpleBuffer("pH 7.0",0.5,100000,7.0,8.4)
-    buffer2 = buffercomponent.SimpleBuffer("ph 8.0",0.5,100000,8.2,8.4)
-    crap6 = component.Component("aga5trg",100,100000)
-    pwhole.ph_gradient_alongy(buffer1,buffer2,0.1,7.2,8.0)
 
 
-    atest.gen_pdf_human(mp)
-#    atest.gen_pdf(mp)
+
+    
+#    atest.gen_pdf_human(mp)
+    atest.gen_pdf(mp)
     atest.canvas_obj.showPage()
     atest.canvas_obj.save()

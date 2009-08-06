@@ -194,7 +194,11 @@ class Plate(object):
 		for y in self.alphas:
 			for x in self.nums:
 				welllist = self.masterplate.getwell(y,x).fillwithwater(Water)
-				
+
+	def fill_water_auto(self):
+            WATER = component.Component("100.00 % Water",55.5,1000000)
+            self.fill_water(WATER)
+
 	def push_component_rowlist(self,Component,finalconc,row_list_alphas):
 		for row in row_list_alphas:
 			if row not in self.alphas:
