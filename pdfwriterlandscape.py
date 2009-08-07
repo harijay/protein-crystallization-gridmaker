@@ -59,8 +59,8 @@ class PlateLandscapewriter():
     def gen_pdf_human(self,masterplate):
         masterplate = masterplate
         import os,datetime
-        self.canvas_obj.drawString(10,30,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
-        self.canvas_obj.drawString(10,22,"%s" % datetime.datetime.now().ctime())
+        self.canvas_obj.drawString(55,30,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
+        self.canvas_obj.drawString(55,22,"%s" % datetime.datetime.now().ctime())
         pos = 1
         import buffercomponent
   
@@ -115,7 +115,7 @@ class PlateLandscapewriter():
     def gen_pdf(self,masterplate):
         masterplate = masterplate
         import os
-        self.canvas_obj.drawString(10,10,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
+        self.canvas_obj.drawString(55,30,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
         pos = 1
         import buffercomponent
 
