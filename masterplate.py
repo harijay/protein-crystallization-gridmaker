@@ -48,7 +48,7 @@ class Masterplate(object):
                     pass
                 else:
                     filename = "".join(os.path.splitext(filename)[0] + ".dl.txt")
-		outfile = open("%s" % filename,"wb")
+		outfile = open("%s" % str(filename),"w")
 		tabwriter = csv.writer(outfile,dialect=csv.excel_tab)
 		header = []
 		header.extend(["DeepWell.pd.txt","",""])
