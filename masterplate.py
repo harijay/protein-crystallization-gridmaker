@@ -45,8 +45,8 @@ class Masterplate(object):
 	def makefileforformulatrix(self,filename):
                 import os
                 if ".dl.txt" in filename:
-                    print filename
-                    print "Writing filename: %s" % filename
+#                    print filename
+#                    print "Writing filename: %s" % filename
                     pass
                 else:
                     filename = "".join(os.path.splitext(filename)[0] + ".dl.txt")

@@ -26,9 +26,9 @@ class Well(object):
 	def deplete(self,vol):
 		self.volleft = self.volleft - vol
                 if "100.00 % Water" in self.wellcomponentdict.keys():
-                        raise plateliberror.PlatelibException("Well volume exceeded when trying to add component:But you have already Added water\n Add water last to prevent this\n")
+                        raise plateliberror.PlatelibException("Well volume exceeded when trying to add component to Well :%s%s.\nBut you have already Added water\n Please Add water last to prevent this\n" % (self.alpha,self.num))
 		if self.volleft < 0:
-                        raise plateliberror.PlatelibException("Well volume exceeded when trying to add component: Increase concentration of stock for any component and retry")
+                        raise plateliberror.PlatelibException("Well volume exceeded when trying to add component to Well :%s%s.\nIncrease concentration of stock for any component and retry" %(self.alpha,self.num))
 				
 	def addcomponent(self,Component,finalconc):
 		key = Component.name
@@ -64,14 +64,16 @@ class Well(object):
 		key = Component.name
 		newname = "100.00 % Water"
 		if key != "100.00 % Water":
-			Component.name = newname
+                    Component.name = newname
+                if self.volleft == 0:
+                    raise plateliberror.PlatelibException("Well volume Already Zero : perhaps you have already added Water to this well : Please add water Last\n")
 		if key not in Well.wellcomponentlist.componentfactory:
-			Well.wellcomponentlist.insertcomponent(Component)
+                    Well.wellcomponentlist.insertcomponent(Component)
                 self.wellcomponentdict[Component.name] = self.volleft
                 self.component_name_object_map[Component.name] = Component
-                # Fixed Bug when other components were added after Water : and self.volleft was not calling deplete to 
-                # update self.volleft
-                # Alternative approach call self.deplete(self.volleft)
+                    # Fixed Bug when other components were added after Water : and self.volleft was not calling deplete to
+                    # update self.volleft
+                    # Alternative approach call self.deplete(self.volleft)
                 self.volleft = 0
 	
 		

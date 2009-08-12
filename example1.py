@@ -93,13 +93,18 @@ def main():
 	p2.fill_water(water)
 	p3.fill_water(water)
 	p4.fill_water(water)
+        # test for repeat fill case : Should throw error
+        #p4.fill_water(water)
+
+	
 	# You can output the composition of each well to standard out with the masterplate.Masterplate.printwellinfo() method
 #	mp.printwellinfo()
 	
 	# And now to write the dispense list for the formulatrix robot
 	
-	mp.makefileforformulatrix("example1.dl.txt")
+	mp.makefileforformulatrix("example1rt.dl.txt")
 	mp.printpdf("example1")
+	mp.printpdfhuman("example1_human")
 if __name__ == '__main__':
 	
 	main()
