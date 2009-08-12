@@ -14,7 +14,7 @@ import masterplate
 class PlateLandscapewriter():
     fontsize_to_fit = 6
     def __init__(self,filename):
-        self.filename = filename
+        self.filename = r"%s" % filename
         self.myold = oldpdf(self.filename)
         self.canvas_obj = canvas.Canvas(self.filename,pagesize=pagesizes.landscape(letter))
         self.canvas_obj.grid(self.make_listx(),self.make_listy())

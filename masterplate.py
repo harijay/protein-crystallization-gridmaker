@@ -45,10 +45,15 @@ class Masterplate(object):
 	def makefileforformulatrix(self,filename):
                 import os
                 if ".dl.txt" in filename:
+                    print filename
+                    print "Writing filename: %s" % filename
                     pass
                 else:
                     filename = "".join(os.path.splitext(filename)[0] + ".dl.txt")
-		outfile = open("%s" % str(filename),"w")
+                    print "Writing filename: %s" % filename
+					
+					
+		outfile = open(r"%s" % str(filename),r"wb")
 		tabwriter = csv.writer(outfile,dialect=csv.excel_tab)
 		header = []
 		header.extend(["DeepWell.pd.txt","",""])
