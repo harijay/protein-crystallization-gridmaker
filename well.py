@@ -66,15 +66,17 @@ class Well(object):
 		if key != "100.00 % Water":
                     Component.name = newname
                 if self.volleft == 0:
-                    raise plateliberror.PlatelibException("Well volume Already Zero : perhaps you have already added Water to this well : Please add water Last\n")
-		if key not in Well.wellcomponentlist.componentfactory:
-                    Well.wellcomponentlist.insertcomponent(Component)
-                self.wellcomponentdict[Component.name] = self.volleft
-                self.component_name_object_map[Component.name] = Component
+                    # If the well is already full Do nothing
+                    pass
+                else:
+                    if key not in Well.wellcomponentlist.componentfactory:
+                        Well.wellcomponentlist.insertcomponent(Component)
+                    self.wellcomponentdict[Component.name] = self.volleft
+                    self.component_name_object_map[Component.name] = Component
                     # Fixed Bug when other components were added after Water : and self.volleft was not calling deplete to
                     # update self.volleft
                     # Alternative approach call self.deplete(self.volleft)
-                self.volleft = 0
+                    self.volleft = 0
 	
 		
 	def getmastercomponentlist(self):

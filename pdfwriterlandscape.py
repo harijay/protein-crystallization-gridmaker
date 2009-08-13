@@ -114,8 +114,9 @@ class PlateLandscapewriter():
 
     def gen_pdf(self,masterplate):
         masterplate = masterplate
-        import os
+        import os,datetime
         self.canvas_obj.drawString(55,30,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
+        self.canvas_obj.drawString(55,22,"%s" % datetime.datetime.now().ctime())
         pos = 1
         import buffercomponent
 
@@ -130,11 +131,11 @@ class PlateLandscapewriter():
                 count = 0
                 phcalcer = []
                 spacing = 0
-
+                wellvol = 0.0
                 # Total components to be written into this well is
                 total_components = len(mywell.wellcomponentdict.keys())
                 try :
-                    spacing = 2.0*cm/total_components
+                    spacing = 2.0*cm/(total_components+1)
                 except ZeroDivisionError , z :
                     pass
                 
@@ -147,6 +148,7 @@ class PlateLandscapewriter():
                     try:
                         conc = float(mywell.wellcomponentdict[solvent] * mywell.component_name_object_map[solvent].stockconc)/float(masterplate.volofeachwell)
                         self.canvas_obj.drawString(x+0.5*mm,y+count*spacing,u"%s, %.1f\xB5l" % (printed_solvent,mywell.wellcomponentdict[solvent]))
+                        wellvol = wellvol + mywell.wellcomponentdict[solvent]
                     except KeyError, h:
                         pass
 
@@ -165,6 +167,7 @@ class PlateLandscapewriter():
                                     self.canvas_obj.drawString(x+5*mm,y+0.5*mm,u"%4s : %2.2f" % ("pH final",ph))
                     except KeyError, k:
                         pass
+                self.canvas_obj.drawString(x + 5*mm,y+(count+1)*spacing,u"Total: %.1f\xB5l" % wellvol)
         self.canvas_obj.showPage()
         self.canvas_obj.save()
 
@@ -246,6 +249,7 @@ if __name__=="__main__":
     p.fill_water(water)
     p2.fill_water(water)
     p3.fill_water(water)
+    p4.fill_water(water)
     p4.fill_water(water)
 
 
