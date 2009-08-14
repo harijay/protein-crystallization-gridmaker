@@ -167,7 +167,9 @@ class PlateLandscapewriter():
                                     self.canvas_obj.drawString(x+5*mm,y+0.5*mm,u"%4s : %2.2f" % ("pH final",ph))
                     except KeyError, k:
                         pass
+
                 self.canvas_obj.drawString(x + 5*mm,y+(count+1)*spacing,u"Total: %.1f\xB5l" % wellvol)
+
         self.canvas_obj.showPage()
         self.canvas_obj.save()
 

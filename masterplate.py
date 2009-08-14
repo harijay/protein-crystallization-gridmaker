@@ -92,6 +92,21 @@ class Masterplate(object):
             mypdf = pdfwriterlandscape.PlateLandscapewriter(filename)
             mypdf.gen_pdf_human(self)
 
+        def get_vol_component_used(self,component):
+            solventvol = 0
+            if component.name not in well.Well.wellcomponentlist.componentfactory:
+                raise plateliberror.PlatelibException("Component %s not used in plate" % component.name)
+            else:
+                for y in self.alphas:
+                    for x in self.nums:
+                        try:
+                            vol = self.getwell(y,x).wellcomponentdict[component.name]
+                            solventvol = solventvol + vol
+                        except KeyError, e:
+                            pass
+            return solventvol
+
+
 def main():
 	sys.path.append("/Users/hari")
 	import masterplate
