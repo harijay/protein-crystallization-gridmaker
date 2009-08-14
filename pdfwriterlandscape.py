@@ -59,8 +59,8 @@ class PlateLandscapewriter():
     def gen_pdf_human(self,masterplate):
         masterplate = masterplate
         import os,datetime
-        self.canvas_obj.drawString(55,30,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
-        self.canvas_obj.drawString(55,22,"%s" % datetime.datetime.now().ctime())
+        self.canvas_obj.drawString(55,38,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
+        self.canvas_obj.drawString(55,30,"%s" % datetime.datetime.now().ctime())
         pos = 1
         import buffercomponent
   
@@ -109,16 +109,17 @@ class PlateLandscapewriter():
                                     self.canvas_obj.drawString(x+5*mm,y+0.5*mm,u"%4s : %2.2f" % ("pH final",ph))
                     except KeyError, k:
                         pass
-        self.canvas_obj.showPage()
+#        self.canvas_obj.showPage()
         self.canvas_obj.save()
 
     def gen_pdf(self,masterplate):
         masterplate = masterplate
         import os,datetime
-        self.canvas_obj.drawString(55,30,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
-        self.canvas_obj.drawString(55,22,"%s" % datetime.datetime.now().ctime())
+        self.canvas_obj.drawString(55,38,"DispenseFilePrefix: %s" % str(os.path.splitext(self.filename)[0] ))
+        self.canvas_obj.drawString(55,30,"%s" % datetime.datetime.now().ctime())
         pos = 1
         import buffercomponent
+        solvent_object_list = []
 
 
         for x in self.make_listx()[:-1]:
@@ -149,6 +150,8 @@ class PlateLandscapewriter():
                         conc = float(mywell.wellcomponentdict[solvent] * mywell.component_name_object_map[solvent].stockconc)/float(masterplate.volofeachwell)
                         self.canvas_obj.drawString(x+0.5*mm,y+count*spacing,u"%s, %.1f\xB5l" % (printed_solvent,mywell.wellcomponentdict[solvent]))
                         wellvol = wellvol + mywell.wellcomponentdict[solvent]
+                        if mywell.component_name_object_map[solvent] not in solvent_object_list:
+                            solvent_object_list.append(mywell.component_name_object_map[solvent])
                     except KeyError, h:
                         pass
 
@@ -169,8 +172,11 @@ class PlateLandscapewriter():
                         pass
 
                 self.canvas_obj.drawString(x + 5*mm,y+(count+1)*spacing,u"Total: %.1f\xB5l" % wellvol)
+        solvent_spacing = 10.5*inch / len(solvent_object_list)
+        for x in range(len(solvent_object_list)):
+            self.canvas_obj.drawString(55+ x*solvent_spacing,22,u"%s: %.1f\xB5l" %(solvent_object_list[x].name,masterplate.get_vol_component_used(solvent_object_list[x])))
 
-        self.canvas_obj.showPage()
+#        self.canvas_obj.showPage()
         self.canvas_obj.save()
 
 if __name__=="__main__":
@@ -260,5 +266,5 @@ if __name__=="__main__":
     
 #    atest.gen_pdf_human(mp)
     atest.gen_pdf(mp)
-    atest.canvas_obj.showPage()
+#    atest.canvas_obj.showPage()
     atest.canvas_obj.save()
