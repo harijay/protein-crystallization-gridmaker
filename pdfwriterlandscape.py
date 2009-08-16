@@ -147,6 +147,7 @@ class PlateLandscapewriter():
                     else:
                         printed_solvent = solvent
                     try:
+#                        print mywell.wellcomponentdict[solvent] , mywell.component_name_object_map[solvent].stockconc , masterplate.volofeachwell
                         conc = float(mywell.wellcomponentdict[solvent] * mywell.component_name_object_map[solvent].stockconc)/float(masterplate.volofeachwell)
                         self.canvas_obj.drawString(x+0.5*mm,y+count*spacing,u"%s, %.1f\xB5l" % (printed_solvent,mywell.wellcomponentdict[solvent]))
                         wellvol = wellvol + mywell.wellcomponentdict[solvent]
