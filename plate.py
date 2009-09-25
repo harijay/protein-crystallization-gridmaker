@@ -207,7 +207,7 @@ class Plate(object):
 			
 	def push_component_columnlist(self,Component,finalconc,column_list_nums):
 		for col in column_list_nums:
-			if col not in col_list_nums:
+			if col not in self.nums:
 				raise plateliberror.PlatelibException("Plate numerical column %s from columnlist not in plate" % col)
 			self.push_component_to_column_on_masterplate(Component,finalconc,col)
 			
