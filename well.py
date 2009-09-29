@@ -27,7 +27,7 @@ class Well(object):
 		self.volleft = self.volleft - vol
                 if "100.00 % Water" in self.wellcomponentdict.keys():
                         raise plateliberror.PlatelibException("Well volume exceeded when trying to add component to Well :%s%s.\nBut you have already Added water\n Please Add water last to prevent this\n" % (self.alpha,self.num))
-		if self.volleft < 0:
+		if round(self.volleft) < 0:
                         raise plateliberror.PlatelibException("Well volume exceeded when trying to add component to Well :%s%s.\nIncrease concentration of stock for any component and retry" %(self.alpha,self.num))
 				
 	def addcomponent(self,Component,finalconc):
