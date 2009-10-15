@@ -22,7 +22,7 @@ class SimpleBuffer(component.Component):
         self.get_conc_acid()
         self.get_conc_base()
         if abs(self.ph - self.pka) > 2.5:
-            buffer_error = plateliberror.PlatelibException("ARE YOU SURE THIS Buffer is made correctly. Buffer\"%s\" pH Value: %s  is beyond its buffering capacity which is +- 2.5 units around its pka of %s :Try using these as Components and use methods to vary volume of one against the other.For eg maketo100_alongx OR maketo100_listx" % (self.name, self.ph, self.pka))
+            buffer_error = plateliberror.PlatelibException("ARE YOU sure your Buffers are made correctly. pH > 2.5 units of pKa. Use methods maketo100_alongx OR maketo100_listx to vary volumes of one component against the other")
             raise buffer_error
 
 		
