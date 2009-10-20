@@ -5,7 +5,7 @@ from setuptools import setup,find_packages
 
 setup (
   name = 'gridder',
-  version = '0.1',
+  version = '0.5',
   packages = find_packages(),
 
   # Declare your packages' dependencies here, for eg:

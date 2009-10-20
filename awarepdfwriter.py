@@ -34,9 +34,12 @@ class Pdfwriter():
         offsetdict =  {24:2*mm,96:3*mm,384:2*mm}
         return offsetdict[style]
 
-    def ylabel_centering_offset(selfself,style):
+    def ylabel_centering_offset(self,style):
         offsetdict =  {24:0*mm,96:0*mm,384:0*mm}
         return offsetdict[style]
+
+    def optimum_component_info_fontsize(self,numbercomponents):
+        return 14 - numbercomponents
 
     def make_grid(self,style=96):
         self.style = style
@@ -147,9 +150,10 @@ class Pdfwriter():
 
                 self.canvas.drawString(x+totalhorizspace/3,y+ spacing/20,u"Total: %.1f\xB5l" % wellvol)
         solvent_string = []
+
         for x in range(len(solvent_object_list)):
-            solvent_string.append(u"%s Conc:%s VolUsed:%.1f\xB5l " %(solvent_object_list[x].name,solvent_object_list[x].stockconc,masterplate.get_vol_component_used(solvent_object_list[x])))
-        self.canvas.setFont("Times-Roman", self.optimum_font_grid_label(masterplate.get_style()))
+            solvent_string.append(u"%s C:%s Use:%.1f\xB5l " %(solvent_object_list[x].name,solvent_object_list[x].stockconc,masterplate.get_vol_component_used(solvent_object_list[x])))
+        self.canvas.setFont("Times-Roman", self.optimum_component_info_fontsize(len(solvent_object_list)))
         self.canvas.drawString(self.xgrid[0],20,"  ,  ".join(solvent_string))
 #        self.canvas_obj.showPage()
         self.canvas.showPage()
