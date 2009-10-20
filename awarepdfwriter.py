@@ -148,7 +148,7 @@ class Pdfwriter():
                 self.canvas.drawString(x+totalhorizspace/3,y+ spacing/20,u"Total: %.1f\xB5l" % wellvol)
         solvent_string = []
         for x in range(len(solvent_object_list)):
-            solvent_string.append(u"%s : %.1f\xB5l " %(solvent_object_list[x].name,masterplate.get_vol_component_used(solvent_object_list[x])))
+            solvent_string.append(u"%s Conc:%s VolUsed:%.1f\xB5l " %(solvent_object_list[x].name,solvent_object_list[x].stockconc,masterplate.get_vol_component_used(solvent_object_list[x])))
         self.canvas.setFont("Times-Roman", self.optimum_font_grid_label(masterplate.get_style()))
         self.canvas.drawString(self.xgrid[0],20,"  ,  ".join(solvent_string))
 #        self.canvas_obj.showPage()
