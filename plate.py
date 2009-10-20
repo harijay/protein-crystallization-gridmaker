@@ -46,12 +46,13 @@ class Plate(object):
 		self.xgradientlist = []
 		self.xgradientlist.append(start)
 		wellstofill = self.numalongnum 
-		step = float(end-start)/wellstofill
+		step = float(end-start)/(wellstofill-1)
 		i = start
 		while len(self.xgradientlist) < (self.numalongnum-1):
 			i = i + step
 			self.xgradientlist.append(i)
 		self.xgradientlist.append(end)
+
 		return self.xgradientlist
 		
 	def specifygradientalongnum(self,list):
@@ -67,7 +68,7 @@ class Plate(object):
 		self.ygradientlist = []
 		self.ygradientlist.append(start)
 		wellstofill = self.numalongalpha
-		step = float(end-start)/wellstofill
+		step = float(end-start)/(wellstofill-1)
 		i = start
 		while len(self.ygradientlist)< (self.numalongalpha -1):
 			i = i + step
