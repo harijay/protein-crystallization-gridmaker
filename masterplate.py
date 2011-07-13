@@ -53,7 +53,7 @@ class Masterplate(object):
 		for k in self.ordered_keys :
 			print self.welldict[k].about()
 			
-	def makefileforhamilton(self,filename,platenumber):
+	def makefileforhamilton(self,filename,platenumber=1):
 		import pprint
 		import csv
 		outrow = []
@@ -75,7 +75,7 @@ class Masterplate(object):
 #			print "Checking: %s, %s" % (yplate,xplate), 
 			for solvent in well.Well.wellcomponentlist.componentfactory:
 				try:
-					outrow.append(self.getwell(yplate,xplate).wellcomponentdict[solvent])
+					outrow.append(int(round(self.getwell(yplate,xplate).wellcomponentdict[solvent])))
 				except KeyError, e:
 					outrow.append(0)
 			outfile.writerow(outrow)
@@ -160,6 +160,18 @@ class Masterplate(object):
                             pass
             return solventvol
 
+        def write_csv_well_by_well(self):
+            f =  open("testingcsv.csv","w")
+            for y in self.alphas:
+                for x in self.nums:
+                    well = self.getwell(y,x)
+                    stuffinthiswell = []
+                    for solvent,value  in well.wellcomponentdict.items():
+                        conc = float(well.wellcomponentdict[solvent] * well.component_name_object_map[solvent].stockconc)/float(self.volofeachwell)
+                        stuffinthiswell.append(",".join([solvent,str(conc)]))
+                    f.write("%s%s" % (y,x) + ",") 
+                    f.write(",".join(stuffinthiswell)+ "\n")
+        
 
 def main():
 	sys.path.append("/Users/hari")

@@ -105,6 +105,8 @@ def main():
 	mp.makefileforformulatrix("example1rt.dl.txt")
 	mp.printpdf("example1")
 	mp.printpdfhuman("example1_human")
+	mp.makefileforhamilton("example1_hamilton.csv",1)
+  	mp.write_csv_well_by_well()
 if __name__ == '__main__':
 	
 	main()
