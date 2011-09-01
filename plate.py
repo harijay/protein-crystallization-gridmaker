@@ -45,8 +45,13 @@ class Plate(object):
 	def calcgradientalongnum(self,start,end):
 		self.xgradientlist = []
 		self.xgradientlist.append(start)
-		wellstofill = self.numalongnum 
-		step = float(end-start)/(wellstofill-1)
+		wellstofill = self.numalongnum
+                step = None
+                try:
+                    step = float(end-start)/(wellstofill-1)
+                except ZeroDivisionError:
+                    # If the plate has no wells
+                    raise plateliberror.PlatelibException("No wells in plate definition : Cannot dispense . Check plate definitions")
 		i = start
 		while len(self.xgradientlist) < (self.numalongnum-1):
 			i = i + step

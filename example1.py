@@ -106,7 +106,7 @@ def main():
 	mp.printpdf("example1")
 	mp.printpdfhuman("example1_human")
 	mp.makefileforhamilton("example1_hamilton.csv",1)
-  	mp.write_csv_well_by_well()
+  	mp.write_csv_well_by_well("example1_csv_well_by_well.csv")
 if __name__ == '__main__':
 	
 	main()

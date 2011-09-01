@@ -76,7 +76,8 @@ def main():
 	
 	# The makefilefor formulatrix outputs the final dispense list
 	mp.makefileforformulatrix("example5.dl.txt")
-	
+	mp.makefileforhamilton("example5.hamilton.csv")
+        mp.write_csv_well_by_well("example5_well_by_Well.csv")
 
 if __name__ == '__main__':
 	main()
