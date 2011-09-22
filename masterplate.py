@@ -63,8 +63,10 @@ class Masterplate(object):
         numplates = 0
         if len(well.Well.wellcomponentlist.componentfactory) > 8:
             numplates = len(well.Well.wellcomponentlist.componentfactory)/8 + 1
-
-        file_suffixes_array = range(numplates)
+            print "Numplates is now" , numplates
+        #print "Numplates" , numplates
+        #Adding one in cases where there is only one list then range returns empty list
+        file_suffixes_array = range(numplates + 1)
         fileroot , ext = os.path.splitext(str(filename))
 
         outfilehandles = []
@@ -74,7 +76,7 @@ class Masterplate(object):
 
     
         solvent_blocks = [well.Well.wellcomponentlist.componentfactory.keys()[i:i+8] for i in range(0,len(well.Well.wellcomponentlist.componentfactory),8)]
-        pprint.pprint(solvent_blocks)
+        #pprint.pprint(solvent_blocks)
         for current_solvent_name_list in solvent_blocks:
             current_handle = outfilehandles.pop(0)
             outrow = []
