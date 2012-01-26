@@ -1,0 +1,24 @@
+The Platelib by Hari Jayaram writes out dispense lists for the formulatrix robot.
+The examples files hopefully describe how to use the library.
+Example file list :
+example1.py 
+example2.py
+example3.py
+
+The examples are self explanatory. If you have any doubts please email the author harijay at the google mail gmail D O and T com 
+
+TODO:
+Graphical display of 96 well plate 
+Graphical user interface : Suggestions on library to use are welcome. Top contender something that will work on linux, mac and windows i.e javascript with css and a webapp ( cgi form) . Alternatively something as boring as Tcl_tk or flashy like Flex or JavaFx script. Please write in with suggestions and if you are interested in helping.
+Incorporate automatic ph-gradients given Buffer Base and Acid. Also pH gradient using ternary buffer systems a la the following two papers
+
+
+Novel buffer systems for macromolecular crystallization.
+Newman J.
+Acta Crystallogr D Biol Crystallogr. 2004 Mar;60(Pt 3):610-2. Epub 2004 Feb 25.
+PMID: 14993709 [PubMed - indexed for MEDLINE]
+
+Optimization of buffer solutions for protein crystallization.
+Gosavi RA, Mueser TC, Schall CA.
+Acta Crystallogr D Biol Crystallogr. 2008 May;64(Pt 5):506-14. Epub 2008 Apr 19.
+PMID: 18453686 [PubMed - indexed for MEDLINE]
