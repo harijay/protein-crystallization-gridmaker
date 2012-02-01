@@ -39,7 +39,7 @@ class Masterplate(object):
             for a in self.alphas:
                 key = "%s" % a + "%s" % i
                 self.ordered_keys_hamilton.append(key)
-        print self.ordered_keys_hamilton
+        #print self.ordered_keys_hamilton
                 
     def getwell(self,alpha,num):
         key = "%s" % alpha + "%s" % num
