@@ -380,7 +380,6 @@ class Plate(object):
         self.push_components_mapped_to_row(simple_component_list,finalconclist,self.nums)
 
     def gradient_list_to_row(self,component,concentration_list,row_alpha):
-        print "CONCS", len(concentration_list) , len(self.nums)
         if row_alpha not in self.alphas:
             raise plateliberror.PlatelibException("Row %s not in plate in gradient_list_to_row" % row_alpha)
         if len(concentration_list) == len(self.nums):
@@ -391,7 +390,6 @@ class Plate(object):
             raise plateliberror.PlatelibException("Too few concentrations or mistake in plate definition for gradient_list_to_row")
 
     def gradient_list_to_column(self,component,concentration_list,column_num):
-        print "CONCS",len(concentration_list), len(self.alphas)
         if column_num not in self.nums:
             raise plateliberror.PlatelibException("Column %d not in plate in gradient_list_to_column" % column_num)
         if len(concentration_list) == len(self.alphas):
@@ -400,6 +398,20 @@ class Plate(object):
                 welltofill = self.masterplate.getwell(row_alpha,column_num).addcomponent(component,float(concentration))
         else:
             raise plateliberror.PlatelibException("Wrong number of concentrations or wells in gradient_list_to_column")
+
+    def gradient_list_to_multiple_columns(self,component,concentration_list,column_num_list):
+        for column in column_num_list:
+            if column not in self.nums:
+                raise plateliberror.PlatelibException("Error in inputs to gradient_list_to_multiple_columns")
+            else:
+                self.gradient_list_to_column(component,concentration_list,column)
+
+    def gradient_list_to_multiple_rows(self,component,concentration_list,row_alpha_list):
+        for arow in row_alpha_list:
+            if arow not in self.alphas:
+                raise plateliberror.PlatelibException("Error in inputs to gradient_list_to_multiple_columns")
+            else:
+                self.gradient_list_to_row(component,concentration_list,arow)
 
 def main():
     peg400 = component.Component("peg400",60,500000)
@@ -410,7 +422,8 @@ def main():
     magic = component.Component("Magic",2,1000000)
     water = component.Component("water",100,100000)
     magic2 = component.Component("Magic2",40000,1000000)
-
+    magic3 = component.Component("Magic3",50000,1000000)
+    magic4 = component.Component("Magic4",50000,1000000)
 
     water = component.Component("water",100,100000)
     mp = masterplate.Masterplate(2000)
@@ -427,6 +440,9 @@ def main():
     p4.push_component_uniform_to_masterplate(salt4,200)
     pwhole.gradient_list_to_row(magic,[0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.10,0.11,0.12],"C")
     pwhole.gradient_list_to_column(magic2,[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8],3)
+    pwhole.gradient_list_to_multiple_columns(magic3,[1,2,3,4,5,6,7,8],[1,5,7])
+    pwhole.gradient_list_to_multiple_rows(magic4,[1,2,3,4,5,6,7,8,9,10,11,12],["A","F"])
+
     # Fill the buffers :
     buffertrislow = buffercomponent.SimpleBuffer("trisph7.5",1.0,100000,7.5,8.03)
     buffertrishigh = buffercomponent.SimpleBuffer("trisph8.5",1.0,100000,8.5,8.03)
