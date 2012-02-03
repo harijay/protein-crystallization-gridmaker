@@ -379,14 +379,33 @@ class Plate(object):
     def components_mapped_column(self,simple_component_list,finalconclist):
         self.push_components_mapped_to_row(simple_component_list,finalconclist,self.nums)
 
+    def gradient_list_to_row(self,component,concentration_list,row_alpha):
+        print "CONCS", len(concentration_list) , len(self.nums)
+        if len(concentration_list) == len(self.nums):
+            for index,concentration in enumerate(concentration_list):
+                column_num = self.nums[index]
+                welltofill = self.masterplate.getwell(row_alpha,column_num).addcomponent(component,float(concentration))
+        else:
+            raise plateliberror.PlatelibException("Too few concentrations or mistake in plate definition for gradient_list_to_row")
+
+    def gradient_list_to_column(self,component,concentration_list,column_num):
+        print "CONCS",len(concentration_list), len(self.alphas)
+        if len(concentration_list) == len(self.alphas):
+            for index,concentration in enumerate(concentration_list):
+                row_alpha = self.alphas[index]
+                welltofill = self.masterplate.getwell(row_alpha,column_num).addcomponent(component,float(concentration))
+        else:
+            raise plateliberror.PlatelibException("Wrong number of concentrations or wells in gradient_list_to_column")
+
 def main():
     peg400 = component.Component("peg400",60,500000)
     salt1 = component.Component("NH42SO4",1000,100000)
     salt2 = component.Component("CaCl2",2000,100000)
     salt3 = component.Component("CaAc2",1000,100000)
     salt4 = component.Component("MgCl2",2000,100000)
+    magic = component.Component("Magic",2,1000000)
     water = component.Component("water",100,100000)
-
+    magic2 = component.Component("Magic2",40000,1000000)
 
 
     water = component.Component("water",100,100000)
@@ -395,13 +414,15 @@ def main():
     p2 = Plate("A7","D12",mp)
     p3 = Plate("E1","H6",mp)
     p4 = Plate("E7","H12",mp)
+    pwhole = Plate("A1","H12",mp)
 
     # Fill the salts :
     p1.push_component_uniform_to_masterplate(salt1,100)
     p2.push_component_uniform_to_masterplate(salt2,200)
     p3.push_component_uniform_to_masterplate(salt3,100)
     p4.push_component_uniform_to_masterplate(salt4,200)
-
+    pwhole.gradient_list_to_row(magic,[0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.10,0.11,0.12],"C")
+    pwhole.gradient_list_to_column(magic2,[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8],3)
     # Fill the buffers :
     buffertrislow = buffercomponent.SimpleBuffer("trisph7.5",1.0,100000,7.5,8.03)
     buffertrishigh = buffercomponent.SimpleBuffer("trisph8.5",1.0,100000,8.5,8.03)
@@ -429,6 +450,7 @@ def main():
     p4.fill_water(water)
     mp.printwellinfo()
     mp.printsolventlistsnapshot()
+    mp.printpdfhuman("testmagic")
     mp.makefileforformulatrix("afterplatemod.dl.txt")
 
 

@@ -153,9 +153,9 @@ class Masterplate(object):
             pass
         else:
             filename = "".join([os.path.splitext(filename)[0],".pdf"])
-            outfile = "%s.pdf" % filename
-            mypdf = pdfwriterlandscape.PlateLandscapewriter(filename)
-            mypdf.gen_pdf_human(self)
+        outfile = "%s.pdf" % filename
+        mypdf = pdfwriterlandscape.PlateLandscapewriter(filename)
+        mypdf.gen_pdf_human(self)
             
     def writepdf(self,filename):
         if "pdf" in filename:
