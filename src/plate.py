@@ -381,6 +381,8 @@ class Plate(object):
 
     def gradient_list_to_row(self,component,concentration_list,row_alpha):
         print "CONCS", len(concentration_list) , len(self.nums)
+        if row_alpha not in self.alphas:
+            raise plateliberror.PlatelibException("Row %s not in plate in gradient_list_to_row" % row_alpha)
         if len(concentration_list) == len(self.nums):
             for index,concentration in enumerate(concentration_list):
                 column_num = self.nums[index]
@@ -390,6 +392,8 @@ class Plate(object):
 
     def gradient_list_to_column(self,component,concentration_list,column_num):
         print "CONCS",len(concentration_list), len(self.alphas)
+        if column_num not in self.nums:
+            raise plateliberror.PlatelibException("Column %d not in plate in gradient_list_to_column" % column_num)
         if len(concentration_list) == len(self.alphas):
             for index,concentration in enumerate(concentration_list):
                 row_alpha = self.alphas[index]
