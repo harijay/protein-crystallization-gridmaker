@@ -9,7 +9,7 @@ Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 import os.path
 
 import sys
-import pdfwriterlandscape, buffercomponent, awarepdfwriter, well
+import pdfwriterlandscape, buffercomponent, awarepdfwriter, well,plateliberror
 
 import csv
 
@@ -42,8 +42,12 @@ class Masterplate(object):
         #print self.ordered_keys_hamilton
                 
     def getwell(self,alpha,num):
-        key = "%s" % alpha + "%s" % num
-        return self.welldict[key]
+        try:
+            key = "%s" % alpha + "%s" % num
+            wellobject = self.welldict[key]
+        except KeyError:
+            raise plateliberror.PlatelibException("Illegal row or column Index : Check Row or Column Index ")
+        return wellobject
 
     def get_style(self):
         return len(self.nums) * len(self.alphas)

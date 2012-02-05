@@ -413,6 +413,66 @@ class Plate(object):
             else:
                 self.gradient_list_to_row(component,concentration_list,arow)
 
+    def buffer_single_ph_to_row_or_rows(self,buffer1,buffer2,concentration,pHdesired,rows):
+        for a_row in rows:
+            for a_column in self.nums:
+                if arow not in self.alphas:
+                    raise plateliberror.PlatelibException("Illegal Row def: Check inputs to buffer single value to rows")
+                else:
+                    calcbuffer =  buffercomponent.SimpleBuffer("calcbuffer",1.0,buffer1.vol + buffer2.vol,pHdesired,buffer1.pka)
+                    volume_ratios = buffer1.volumes_given_counter(buffer2,calcbuffer)
+                    vtotal = (concentration*self.masterplate.volofeachwell)/calcbuffer.conc
+                    v1 = vtotal * volume_ratios[0]
+                    v2 = vtotal* volume_ratios[1]
+                    concentration_buffer1 = (v1*buffer1.stockconc)/self.masterplate.volofeachwell
+                    concentration_buffer2 = (v2*buffer2.stockconc)/self.masterplate.volofeachwell
+                    welltofill = self.masterplate.getwell(a_row,a_column).addcomponent(buffer1,concentration_buffer1)
+                    welltofill = self.masterplate.getwell(a_row,a_column).addcomponent(buffer2,concentration_buffer2)
+
+
+    def buffer_single_ph_to_column_or_columns(self,buffer1,buffer2,concentration,pHdesired,columns):
+        for a_column in columns:
+            for a_row in self.alphas:
+                if a_column not in self.nums:
+                    raise plateliberror.PlatelibException("Illegal Column def. Check inputs to buffer single pH to columns")
+                else:
+                    calcbuffer =  buffercomponent.SimpleBuffer("calcbuffer",1.0,buffer1.vol + buffer2.vol,pHdesired,buffer1.pka)
+                    volume_ratios = buffer1.volumes_given_counter(buffer2,calcbuffer)
+                    vtotal = (concentration*self.masterplate.volofeachwell)/calcbuffer.conc
+                    v1 = vtotal * volume_ratios[0]
+                    v2 = vtotal* volume_ratios[1]
+                    concentration_buffer1 = (v1*buffer1.stockconc)/self.masterplate.volofeachwell
+                    concentration_buffer2 = (v2*buffer2.stockconc)/self.masterplate.volofeachwell
+                    welltofill = self.masterplate.getwell(a_row,a_column).addcomponent(buffer1,concentration_buffer1)
+                    welltofill = self.masterplate.getwell(a_row,a_column).addcomponent(buffer2,concentration_buffer2)
+
+    def buffer_ph_to_single_well(self,buffer1,buffer2,concentration,pHdesired,alpha,num):
+        calcbuffer =  buffercomponent.SimpleBuffer("calcbuffer",1.0,buffer1.vol + buffer2.vol,pHdesired,buffer1.pka)
+        volume_ratios = buffer1.volumes_given_counter(buffer2,calcbuffer)
+        vtotal = (concentration*self.masterplate.volofeachwell)/calcbuffer.conc
+        v1 = vtotal * volume_ratios[0]
+        v2 = vtotal* volume_ratios[1]
+        concentration_buffer1 = (v1*buffer1.stockconc)/self.masterplate.volofeachwell
+        concentration_buffer2 = (v2*buffer2.stockconc)/self.masterplate.volofeachwell
+        welltofill = self.masterplate.getwell(alpha,num).addcomponent(buffer1,concentration_buffer1)
+        welltofill = self.masterplate.getwell(alpha,num).addcomponent(buffer2,concentration_buffer2)
+
+
+    def buffer_multiple_phs_to_single_row(self,buffer1,buffer2,concentration,ph_list,alpha):
+        if len(ph_list) == len(self.nums):
+            for index, ph in enumerate(ph_list):
+                print index,alpha,self.nums[index]
+                self.buffer_ph_to_single_well(buffer1,buffer2,concentration,ph,alpha,self.nums[index])
+        else:
+            raise plateliberror.PlatelibException("Illegal argument in buffer_multiple_phs_to_single_row")
+
+    def buffer_multiple_phs_to_single_column(self,buffer1,buffer2,concentration,ph_list,num):
+        if  len(ph_list) == len(self.alphas):
+            for index,ph in enumerate(ph_list):
+                self.buffer_ph_to_single_well(buffer1,buffer2,concentration,ph,self.alphas[index],num)
+        else:
+            raise plateliberror.PlatelibException("Illegal argument in buffer_multiple_phs_to_single_column")
+
 def main():
     peg400 = component.Component("peg400",60,500000)
     salt1 = component.Component("NH42SO4",1000,100000)
@@ -445,13 +505,16 @@ def main():
 
     # Fill the buffers :
     buffertrislow = buffercomponent.SimpleBuffer("trisph7.5",1.0,100000,7.5,8.03)
-    buffertrishigh = buffercomponent.SimpleBuffer("trisph8.5",1.0,100000,8.5,8.03)
-    p1.ph_list_alongx(buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0,8.1,8.2])
-    p2.ph_list_alongx(buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0,8.1,8.2])
-    p3.ph_list_alongx(buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0,8.1,8.2])
-    p4.ph_list_alongx(buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0,8.1,8.2])
+    buffertrishigh = buffercomponent.SimpleBuffer("trisph8.5",1.0,100000,9.0,8.03)
+#    p1.ph_list_alongx(buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0,8.1,8.2])
+#    p2.ph_list_alongx(buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0,8.1,8.2])
+#    p3.ph_list_alongx(buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0,8.1,8.2])
+#    p4.ph_list_alongx(buffertrislow,buffertrishigh,0.1,[7.7,7.8,7.9,8.0,8.1,8.2])
+#
+#    pwhole.buffer_single_ph_to_columns(buffertrislow,buffertrishigh,0.1,7.7,[1])
+#    pwhole.buffer_single_ph_to_columns(buffertrislow,buffertrishigh,0.1,7.8,[2])
 
-
+    pwhole.buffer_multiple_phs_to_single_row(buffertrishigh,buffertrislow,0.1,[7.5 + x/12.0 for x in range(12)],"D")
 
     # Setup the peg gradients
     p1.push_gradient_list_y(peg400,[25,30,38,45])
@@ -459,9 +522,9 @@ def main():
     p3.push_gradient_list_y(peg400,[25,30,38,45])
     p4.push_gradient_list_y(peg400,[25,30,38,45])
 
-    t1 = component.Component("tb1",2.0,100000)
-    t2 = component.Component("tb2",2.0,10000)
-    p1.maketo100_alongx(t1,t2,0.1,30,80)
+#    t1 = component.Component("tb1",2.0,100000)
+#    t2 = component.Component("tb2",2.0,10000)
+#    p1.maketo100_alongx(t1,t2,0.1,30,80)
 
     # Water top up
     p1.fill_water(water)

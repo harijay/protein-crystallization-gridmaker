@@ -7,7 +7,7 @@ Created by Hariharan Jayaram on 2009-01-24.
 Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 """
 
-from gridder import plateliberror, component
+import plateliberror, component
 
 class SimpleBuffer(component.Component):
 	 
