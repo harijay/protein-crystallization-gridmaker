@@ -416,7 +416,7 @@ class Plate(object):
     def buffer_single_ph_to_row_or_rows(self,buffer1,buffer2,concentration,pHdesired,rows):
         for a_row in rows:
             for a_column in self.nums:
-                if arow not in self.alphas:
+                if a_row not in self.alphas:
                     raise plateliberror.PlatelibException("Illegal Row def: Check inputs to buffer single value to rows")
                 else:
                     calcbuffer =  buffercomponent.SimpleBuffer("calcbuffer",1.0,buffer1.vol + buffer2.vol,pHdesired,buffer1.pka)
