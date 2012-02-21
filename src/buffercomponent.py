@@ -11,7 +11,7 @@ import plateliberror, component
 
 class SimpleBuffer(component.Component):
 	 
-    def __init__(self, name, stockconc, totalvol, ph, pka):
+    def __init__(self, name, stockconc, totalvol, ph, pka,dispensed=True):
         self.name = name.strip()
         self.stockconc = stockconc
         self.vol = totalvol
@@ -20,6 +20,7 @@ class SimpleBuffer(component.Component):
         self.molratio = self.mol_ratio()
         self.get_conc_acid()
         self.get_conc_base()
+        self.dispensed = dispensed
         if abs(self.ph - self.pka) > 2.5:
             buffer_error = plateliberror.PlatelibException("ARE YOU sure your Buffers are made correctly. pH > 2.5 units of pKa. Use methods maketo100_alongx OR maketo100_listx to vary volumes of one component against the other")
             raise buffer_error

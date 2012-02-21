@@ -104,6 +104,7 @@ def main():
     mp.printpdfhuman("example1_human")
     mp.makefileforhamilton("example1_hamilton.csv",1)
     mp.write_csv_well_by_well("example1_csv_well_by_well.csv")
+    mp.write_rigaku_crystaltrak("example1_rigaku_crystaltrak.csv")
 if __name__ == '__main__':
     main()
 

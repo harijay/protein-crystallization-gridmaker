@@ -9,7 +9,7 @@ Copyright (c) 2009 __SciForward LLC__. All rights reserved.
 import os.path
 
 import sys
-import pdfwriterlandscape, buffercomponent, awarepdfwriter, well,plateliberror
+import pdfwriterlandscape, buffercomponent, awarepdfwriter, well,plateliberror,plate,component,buffercomponent
 
 import csv
 
@@ -21,7 +21,6 @@ class Masterplate(object):
     ordered_keys_hamilton = []
     welldict = {}
     volofeachwell = None
-    
     def __init__(self,volofeachwell,style=96):
         Masterplate.volofeachwell = volofeachwell
         self.alphadict = {96 : map(chr,range(65,73)),\
@@ -128,7 +127,11 @@ class Masterplate(object):
         #outfile.write("\n")
         solventline = []
         for solvent in well.Well.wellcomponentlist.componentfactory:
-            solventline.extend(["%s" % solvent,"",""])
+            component_object = well.Well.component_name_object_map[solvent]
+            if component_object.dispensed:
+                solventline.extend(["%s" % solvent,"",""])
+            else:
+                continue
             for y in self.alphas:
                 for x in self.nums:
                     try:
@@ -213,16 +216,68 @@ class Masterplate(object):
 
                     f.write("%s%s" % (y,x) + ",") 
                     f.write(",".join(stuffinthiswell)+ "\n")
-           
+
+    def write_rigaku_crystaltrak(self,filename):
+        f = open(filename,"w")
+        absolute_index = 0
+        for y in self.alphas:
+            for x in self.nums:
+                absolute_index = absolute_index + 1
+                well = self.getwell(y,x)
+                phcalcer = []
+                itms = well.wellcomponentdict.items()
+                for solvent,value in itms:
+                    entry_array = []
+                    conc = float(well.wellcomponentdict[solvent] * well.component_name_object_map[solvent].stockconc)/float(self.volofeachwell)
+                    entry_array.append(str(absolute_index))
+                    entry_array.append("".join([str(y),str(x)]))
+                    entry_array.append(str(conc))
+                    entry_array.append("M")
+                    if isinstance(well.component_name_object_map[solvent], buffercomponent.SimpleBuffer):
+                        phcalcer.append(well.component_name_object_map[solvent])
+                        if len(phcalcer) == 2 :
+                        # Calculate pH and then print to sheet
+                            if phcalcer[0].pka != phcalcer[1].pka:
+                                pass
+                            else:
+                                import math
+                                numerator = phcalcer[0].get_conc_base()*well.wellcomponentdict[phcalcer[0].name] + phcalcer[1].get_conc_base()*well.wellcomponentdict[phcalcer[1].name]
+                                denominator = phcalcer[0].get_conc_acid()*well.wellcomponentdict[phcalcer[0].name]+ phcalcer[1].get_conc_acid()*well.wellcomponentdict[phcalcer[1].name]
+                                ph = phcalcer[0].pka + math.log10(numerator/ denominator)
+                                entry_array.append(str(ph))
+                        else:
+                            # Blank column for pH value on next Buffer
+                            entry_array.append("")
+                    else:
+                        #Blank value for pH column
+                        entry_array.append("")
+                    entry_array.append(solvent)
+                    f.write(",".join(entry_array) + "\n")
+
+
+        f.close()
+
 
 def main():
     sys.path.append("/Users/hari")
     testplate = Masterplate(2000,96)
+    p = plate.Plate("A1","H12",testplate)
+    p.constant_salt(component.Component("TestComponent",1,100000),0.2)
+    p.constant_salt(component.Component("CaCl2",2,100000),0.05)
+    b1 = buffercomponent.SimpleBuffer("TrisHigh",1,100000,7,8.06)
+    b2 = buffercomponent.SimpleBuffer("TrisLow",1,100000,9,8.06)
+    cpi1 = component.Component("CPI-268086",50e-3,100000,False)
+    peg = component.Component("Peg8K",50,1000000)
+    p.ph_gradient_alongx(b1,b2,0.1,7.5,8.2)
+    p.gradient_along_y(peg,15,28)
+    p.push_component_to_row_on_masterplate(cpi1,0,"A")
     testplate.makefileforhamilton("masterplate_main",1)
     testplate.write_csv_well_by_well("masterplate_csv_well_by_well.csv")
+    testplate.makefileforformulatrix("testfile")
 #   testplate.printwellinfo()
     print testplate.get_style()
-    testplate.writepdf("masterplate_main.pdf")
+    testplate.writepdf("masterplate_main")
+    testplate.write_rigaku_crystaltrak("maintest_rigaku.csv")
     pass
 
 

@@ -473,6 +473,18 @@ class Plate(object):
         else:
             raise plateliberror.PlatelibException("Illegal argument in buffer_multiple_phs_to_single_column")
 
+    def buffer_ph_list_to_multiple_rows(self,buffer1,buffer2,concentration,ph_list,alpha_list):
+        if len(ph_list) != len(self.nums):
+            raise plateliberror.PlatelibException("Check buffer ph List to multiple rows, improper number of pHs")
+        for row in alpha_list:
+            self.buffer_multiple_phs_to_single_row(buffer1,buffer2,concentration,ph_list,row)
+
+    def bufffer_ph_list_to_multiple_columns(self,buffer1,buffer2,concentration,ph_list,num_list):
+        if len(ph_list) != len(self.alphas):
+            raise plateliberror.PlatelibException("Check buffer ph List to multiple columns, improper number of pHs")
+        for column in num_list:
+            self.buffer_multiple_phs_to_single_column(buffer1,buffer2,concentration,ph_list,column)
+
 def main():
     peg400 = component.Component("peg400",60,500000)
     salt1 = component.Component("NH42SO4",1000,100000)
@@ -514,7 +526,7 @@ def main():
 #    pwhole.buffer_single_ph_to_columns(buffertrislow,buffertrishigh,0.1,7.7,[1])
 #    pwhole.buffer_single_ph_to_columns(buffertrislow,buffertrishigh,0.1,7.8,[2])
 
-    pwhole.buffer_multiple_phs_to_single_row(buffertrishigh,buffertrislow,0.1,[7.5 + x/12.0 for x in range(12)],"D")
+    pwhole.buffer_ph_list_to_multiple_rows(buffertrishigh,buffertrislow,0.1,[7.5 + x/12.0 for x in range(12)],["A","D"])
 
     # Setup the peg gradients
     p1.push_gradient_list_y(peg400,[25,30,38,45])

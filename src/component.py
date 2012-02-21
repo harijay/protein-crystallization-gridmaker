@@ -14,11 +14,12 @@ class Component(object):
 	# units that the final concentration is going to be specified in the well for eg 1000 ( or 1 ) 
 	# and well concentration 200 ( or 0.2) denotes a component stock of 1000 mM and final conc of 
 	# 200 mM or you could also use 1 in which case final conc will be 0.2 
-	def __init__(self,name,stockconc,totalvol):
+	def __init__(self,name,stockconc,totalvol,dispensed=True):
 		self.vol = totalvol
 		self.name = name.strip()
 		self.stockconc = stockconc
-		
+		self.dispensed = dispensed
+
 	def deplete(self,volused):
 		self.vol = self.vol - volused
 		if self.vol <= 0:
