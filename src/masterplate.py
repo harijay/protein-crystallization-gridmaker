@@ -12,13 +12,13 @@ import sys
 import pdfwriterlandscape, buffercomponent, awarepdfwriter, well,plateliberror,plate,component,buffercomponent
 
 import csv
+import pprint
 
 class Masterplate(object):
     # A master plate class . Holds the plate dictionary and methods to return static well instances 
 #   alphas = map(chr, range(65, 73))
 #   nums = [1,2,3,4,5,6,7,8,9,10,11,12]
     ordered_keys = []
-    ordered_keys_hamilton = []
     welldict = {}
     volofeachwell = None
     def __init__(self,volofeachwell,style=96):
@@ -34,6 +34,7 @@ class Masterplate(object):
                 key = "%s" % a + "%s" % i
                 self.ordered_keys.append(key)
                 self.welldict[key] = well.Well(a,i,Masterplate.volofeachwell)
+        self.ordered_keys_hamilton = []
         for i in self.nums:
             for a in self.alphas:
                 key = "%s" % a + "%s" % i
@@ -54,28 +55,29 @@ class Masterplate(object):
     def printwellinfo(self):
         for k in self.ordered_keys :
             print self.welldict[k].about()
-            
-    def makefileforhamilton(self,filename,platenumber=1):
+
+    def makefileforhamilton(self, filename, platenumber=1):
         filename = str(filename)
         import csv
         #Check to see if there are more than 8 reagents - since hamilton deck holds only 8 reagents
         numplates = 0
+        print "LEN well.Well.wellcomponentlist.componentfactory" , len(well.Well.wellcomponentlist.componentfactory)
         if len(well.Well.wellcomponentlist.componentfactory) > 8:
-            numplates = len(well.Well.wellcomponentlist.componentfactory)/8 + 1
-            print "Numplates is now" , numplates
-        #print "Numplates" , numplates
+            numplates = len(well.Well.wellcomponentlist.componentfactory) / 8 + 1
+            print "Numplates is now", numplates
+            #print "Numplates" , numplates
         #Adding one in cases where there is only one list then range returns empty list
         file_suffixes_array = range(numplates + 1)
-        fileroot , ext = os.path.splitext(str(filename))
+        fileroot, ext = os.path.splitext(str(filename))
 
         outfilehandles = []
-        
-        for suffix in file_suffixes_array:
-            outfilehandles.append(csv.writer(open(r"%s_%s%s" % (fileroot,suffix + 1 ,ext),r"wb")))
 
-    
-        solvent_blocks = [well.Well.wellcomponentlist.componentfactory.keys()[i:i+8] for i in range(0,len(well.Well.wellcomponentlist.componentfactory),8)]
-        #pprint.pprint(solvent_blocks)
+        for suffix in file_suffixes_array:
+            outfilehandles.append(csv.writer(open(r"%s_%s%s" % (fileroot, suffix + 1, ext), r"wb")))
+
+        solvent_blocks = [well.Well.wellcomponentlist.componentfactory.keys()[i:i + 8] for i in
+                          range(0, len(well.Well.wellcomponentlist.componentfactory), 8)]
+        pprint.pprint(solvent_blocks)
         for current_solvent_name_list in solvent_blocks:
             current_handle = outfilehandles.pop(0)
             outrow = []
@@ -86,8 +88,8 @@ class Masterplate(object):
                 outrow.append(solvent)
             current_handle.writerow(outrow)
 
-            
-                # well.Well.wellcomponentlist.componentfactory is a dictionary of compound names given by user keys and corresponding component objects values
+
+            # well.Well.wellcomponentlist.componentfactory is a dictionary of compound names given by user keys and corresponding component objects values
             for k in self.ordered_keys_hamilton:
                 outrow = []
                 outrow.append("Plate %s" % platenumber)
@@ -98,12 +100,12 @@ class Masterplate(object):
                 #           print "Checking: %s, %s" % (yplate,xplate), 
                 for solvent in current_solvent_name_list:
                     try:
-                        outrow.append(int(round(self.getwell(yplate,xplate).wellcomponentdict[solvent])))
+                        outrow.append(int(round(self.getwell(yplate, xplate).wellcomponentdict[solvent])))
                     except KeyError, e:
                         outrow.append(0)
                 current_handle.writerow(outrow)
-            
-            
+
+
     def printsolventlistsnapshot(self):
         self.getwell("A",1).getmastercomponentlist().listcontents()
 
@@ -277,6 +279,7 @@ def main():
 #   testplate.printwellinfo()
     print testplate.get_style()
     testplate.writepdf("masterplate_main")
+    testplate.makefileforhamilton(("testplate_hamilton.csv"))
     testplate.write_rigaku_crystaltrak("maintest_rigaku.csv")
     pass
 
